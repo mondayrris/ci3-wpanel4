@@ -28,6 +28,10 @@ Navigate [http://localhost:8080](http://localhost:8080)
 
 Navigate [http://localhost:8080/index.php/admin](http://localhost:8080/index.php/admin)
 
+## Demo
+
+Navigate [https://ci3-wpanel4.mondayrris.site](https://ci3-wpanel4.mondayrris.site)
+
 ## License
 
 MIT
