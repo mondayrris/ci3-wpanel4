@@ -1,4 +1,4 @@
-<?php if(!defined('BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -76,48 +76,48 @@ $query_builder = TRUE;
  * Setup to development environment.
  */
 $db['development'] = array(
-	'dsn'	=> '',
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => APPPATH.'database/development.sqlite',
-	'dbdriver' => 'sqlite3',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'dsn' => '',
+    'hostname' => '',
+    'username' => '',
+    'password' => '',
+    'database' => APPPATH . 'database/development.sqlite',
+    'dbdriver' => 'sqlite3',
+    'dbprefix' => '',
+    'pconnect' => TRUE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
 );
 
 /**
  * Setup to production environment.
  */
 $db['production'] = array(
-	'dsn'	=> '',
-	'hostname' => '',
-	'username' => '',
-	'password' => '',
-	'database' => APPPATH.'database/production.sqlite',
-	'dbdriver' => 'sqlite3',
-	'dbprefix' => '',
-	'pconnect' => TRUE,
-	'db_debug' => (ENVIRONMENT !== 'production'),
-	'cache_on' => FALSE,
-	'cachedir' => '',
-	'char_set' => 'utf8',
-	'dbcollat' => 'utf8_general_ci',
-	'swap_pre' => '',
-	'encrypt' => FALSE,
-	'compress' => FALSE,
-	'stricton' => FALSE,
-	'failover' => array(),
-	'save_queries' => TRUE
+    'dsn' => '',
+    'hostname' => '',
+    'username' => '',
+    'password' => '',
+    'database' => APPPATH . 'database/production.sqlite',
+    'dbdriver' => 'sqlite3',
+    'dbprefix' => '',
+    'pconnect' => TRUE,
+    'db_debug' => (ENVIRONMENT !== 'production'),
+    'cache_on' => FALSE,
+    'cachedir' => '',
+    'char_set' => 'utf8',
+    'dbcollat' => 'utf8_general_ci',
+    'swap_pre' => '',
+    'encrypt' => FALSE,
+    'compress' => FALSE,
+    'stricton' => FALSE,
+    'failover' => array(),
+    'save_queries' => TRUE
 );

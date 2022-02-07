@@ -1,3 +1,15 @@
+public/.htpasswd
+
+.vscode
+
+app/libraries/composer
+app/libraries/composer/*
+
+app/libraries/autoload.php
+
+
+#---Original
+
 # Eclipse
 .project
 .settings

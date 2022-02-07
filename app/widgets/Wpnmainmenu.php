@@ -61,15 +61,19 @@ class Wpnmainmenu extends Widget
         $html .= "<ul class=\"" . $ul_style . "\">";
         foreach ($query as $row)
         {
+
             if ($row->tipo == 'submenu') {
                 $html .= "<li class=\"" . $li_style . "\">";
             } else {
                 $html .= "<li>";
             }
+            // this is the reason why row target has problem.
+            // var_dump(get_object_vars($row));
+            // $row->target = $row->{'"target"'};
             switch ($row->tipo)
             {
                 case 'link':
-                    $html .= "<a href=\"" . $row->href . "\" target=\"".$row->target."\">" . $row->label . "</a>";
+                    $html .= "<a href=\"" . $row->href . "\" target=\"". $row->target. "\">" . $row->label . "</a>";
                     break;
                 case 'post':
                     $html .= anchor('post/' . $row->href, $row->label, ['target' => $row->target]);

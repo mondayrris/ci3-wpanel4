@@ -22,7 +22,8 @@
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = BASE_URL;
+$config['base_url'] = 'https://ci3-wpanel4.mondayrris.site/';
+define("BASE_URL", $config['base_url']);
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +76,7 @@ $config['uri_protocol']	= 'REQUEST_URI';
 | than english.
 |
 */
-$config['language']	= 'portuguese';
+$config['language']	= 'english';
 
 /*
 |--------------------------------------------------------------------------
