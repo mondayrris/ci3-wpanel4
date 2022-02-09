@@ -101,14 +101,14 @@
                 <div class="form-group">
                     <label for="id" class="col-sm-2 col-md-2 control-label"><?= wpn_lang('field_description'); ?></label>
                     <div class="col-sm-10 col-md-10">
-                        <input type="text" name="description" id="description" class="form-control" />
+                        <input type="text" name="description" id="description" class="form-control" required />
                         <?= form_error('description'); ?>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="id" class="col-sm-2 col-md-2 control-label"><?= wpn_lang('field_link'); ?></label>
                     <div class="col-sm-10 col-md-10">
-                        <input type="text" name="link" id="link" class="form-control" />
+                        <input type="text" name="link" id="link" class="form-control" required />
                         <?= form_error('link'); ?>
                     </div>
                 </div>

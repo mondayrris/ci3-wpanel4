@@ -140,8 +140,9 @@ class Menus extends Authenticated_admin_controller
             $data['menu_id'] = $menu_id;
             $data = $this->_save_menu_item($data, $tipo_link);
 
-            if ($this->menu_item->insert($data))
-                $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus');
+            $id = $this->menu_item->insert($data);
+            if ($id)
+                $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus/edititem/' . $id);
             else
                 $this->set_message(wpn_lang('wpn_message_update_error'), 'danger', 'admin/menus');
         }
@@ -172,9 +173,9 @@ class Menus extends Authenticated_admin_controller
             $data = array();
             $data = $this->_save_menu_item($data, $tipo_link);
             if ($this->menu_item->update($id, $data))
-                $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus');
+                $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus/edititem/' . $id);
             else
-                $this->set_message(wpn_lang('wpn_message_update_error'), 'danger', 'admin/menus');
+                $this->set_message(wpn_lang('wpn_message_update_error'), 'danger', 'admin/menus/edititem/' . $id);
         }
     }
 

@@ -56,9 +56,10 @@ class Category extends MY_Model
         if ($id)
         {
             $query = $this->select('title')->find($id);
-            return $query->title;
+            if (is_object($query)) return $query->title;
+            else return FALSE;
         } else
-            return false;
+            return FALSE;
     }
 
     /**

@@ -2,6 +2,13 @@
 
 > [Original README](./readme-original.md)
 
+## Todo
+
+- [ ] Gallery max post size is 2MB
+- [ ] Banner photo (no banner image, banner image height is high)
+- [ ] Fix on page link break, missing lang message
+- [x] Code convention, fix, refactorization
+
 ## Configuration
 
 Change $config['base_url'] in `app\config\config.php`

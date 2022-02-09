@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -8,12 +8,12 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Define o template do site.
+ * Defines the website template.
  */
 $config['template'] = 'default';
 
 /**
- * Define os delimitadores das mensagens de erro da biblioteca Validator.
+ * Defines the delimiters of the Validator library error messages.
  */
 $config['validator_error_delimiters'] = array(
     'open' => '<p><span class="label label-danger">',
@@ -21,64 +21,64 @@ $config['validator_error_delimiters'] = array(
 );
 
 /**
- * Define os idiomas disponíveis. 
+ * Defines available languages.
  */
 $config['available_languages'] = array(
-    'english'    => array('locale' => 'en', 'label' => 'Inglês'), 
-    'portuguese' => array('locale' => 'pt_BR', 'label' => 'Português')
+    'english' => array('locale' => 'en', 'label' => 'English'),
+    'portuguese' => array('locale' => 'pt_BR', 'label' => 'Portuguese')
 );
 
 /**
- * Define o formato das datas para o usuário.
+ * Defines the date format for the user.
  */
 $config['user_date_format'] = '%d/%m/%Y';
 
 /**
- * Define o formato das datas para o banco de dados.
+ * Defines the date format for the database.
  */
 $config['db_date_format'] = '%Y-%m-%d';
 
 /**
- * Define o formato das data e hora para o usuário.
+ * Defines the date and time format for the user.
  */
 $config['user_datetime_format'] = '%d/%m/%Y %H:%i:%s';
 
 /**
- * Define o formato das data e hora para o banco de dados.
+ * Defines the date and time format for the database.
  */
 $config['db_datetime_format'] = '%Y-%m-%d %H:%i:%s';
 
 /**
- * Define os editores de texto disponíveis no sistema.
+ * Defines the text editors available on the system.
  */
 $config['available_editors'] = array('ckeditor'=>'CKEditor', 'tinymce'=>'TinyMCE');
 
 /**
- * Define os tipos de usuário serão permitidos no site. 
+ * Defines what types of users will be allowed on the site.
  */
-$config['users_role'] = array('user' => 'Usuário comum', 'admin' => 'Administrador');
+$config['users_role'] = array('user' => 'Common User', 'admin' => 'Administrator');
 
 /**
- * Define as views disponíveis para a exibição das listas de postagens.
+ * Defines the views available for displaying post lists.
  */
-$config['posts_views'] = array('list' => 'Listagem', 'mosaic' => 'Mosaico');
+$config['posts_views'] = array('list' => 'Listing', 'mosaic' => 'Mosaic');
 
 /**
- * Define as posições dos banners no site para serem listados no 
- * painel de contorle.
+ * Defines the positions of banners on the site to be listed in the
+ * control panel.
  */
-$config['banner_positions'] = array('slide' => 'Slide-Show', 'sidebar' => 'Barra lateral');
+$config['banner_positions'] = array('slide' => 'Slide-Show', 'sidebar' => 'Sidebar');
 
 /**
- * Define os links funcionais para o gerenciador de menu.
+ * Defines the functional links for the menu manager.
  */
-$config['funcional_links'] = array(
-    'home'      => 'Página inicial',
-    'contact'   => 'Página de contato',
-    'albuns'    => 'Galeria de fotos',
-    'videos'    => 'Galeria de videos',
-    'events'    => 'Lista de eventos',
-    'pool'      => 'Lista de enquetes',
-    'users'     => 'Área do usuário',
-    'rss'       => 'Página de RSS',
+$config['functional_links'] = array(
+    'home' => 'Home page',
+    'contact' => 'Contact page',
+    'albums' => 'Photo gallery',
+    'videos' => 'Video gallery',
+    'events' => 'List of events',
+    'pool' => 'Poll List',
+    'users' => 'User area',
+    'rss' => 'RSS Page',
 );

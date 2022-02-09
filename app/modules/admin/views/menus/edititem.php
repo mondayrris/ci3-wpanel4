@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedVariableInspection */?>
 <section class="content-header">
     <h1>
-        /** @noinspection PhpUndefinedVariableInspection *//** @noinspection PhpUndefinedVariableInspection *//** @noinspection PhpUndefinedVariableInspection */<?= wpn_lang('module_title'); ?>
+        <?= wpn_lang('module_title'); ?>
         <small><?= wpn_lang('module_description'); ?></small>
     </h1>
     <ol class="breadcrumb">
@@ -15,6 +15,12 @@
     <div class="box">
         <div class="box-header with-border">
             <h3 class="box-title"><?= wpn_lang('module_edit_item'); ?></h3>
+            <div class="box-tools pull-right">
+                <a href="<?= base_url()?>admin/menus" class="btn btn-sm btn-primary">
+                    <span class="glyphicon glyphicon-chevron-left"></span>Back
+                </a>
+            </div>
+
         </div>
         <div class="box-body">
             <?= form_open('admin/menus/edititem/' . $row->id, array('role'=>'form')); ?>
@@ -80,12 +86,14 @@
                     </select>
                 </div>
                 <div class="form-group" id="form_funcional" <?php if($row->tipo == 'funcional'){ echo 'style="display:block;"'; } else {echo 'style="display:none;"';} ?>>
+<!--                    <label for="funcional">--><?//= wpn_lang('opt_functional'); ?><!--</label>-->
+<!--                    <select class="form-control" name="funcional" id="funcional">-->
+<!--                        --><?php //foreach(config_item('funcional_links') as $key => $value){ ?>
+<!--                            <option value="--><?//= $key; ?><!--" --><?php //if($row->href == $key){ echo 'selected="selected"';} ?><!----><?//= $value ?><!--</option>-->
+<!--                        --><?php //} ?>
+<!--                    </select>-->
                     <label for="funcional"><?= wpn_lang('opt_functional'); ?></label>
-                    <select class="form-control" name="funcional" id="funcional">
-                        <?php foreach(config_item('funcional_links') as $key => $value){ ?>
-                            <option value="<?= $key; ?>" <?php if($row->href == $key){ echo 'selected="selected"';} ?>><?= $value ?></option>
-                        <?php } ?>
-                    </select>
+                    <input type="text" name="funcional" id="funcional" value="<?= set_value('funcional', $row->href) ?>" class="form-control" />
                 </div>
                 <div class="form-group" id="form_submenu" <?php if($row->tipo == 'submenu'){ echo 'style="display:block;"'; } else {echo 'style="display:none;"';} ?>>
                     <label for="funcional"><?= wpn_lang('opt_submenu'); ?></label>

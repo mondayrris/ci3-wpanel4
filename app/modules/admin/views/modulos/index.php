@@ -59,7 +59,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
                 <div class="form-group">
                     <label for="id" class="col-sm-2 col-md-2 control-label"><?= wpn_lang('field_short_name'); ?></label>
                     <div class="col-sm-9 col-md-9">
-                        <input type="text" name="name" id="name" class="form-control" />
+                        <input type="text" name="name" id="name" class="form-control" required/>
                         <?= form_error('name'); ?>
                     </div>
                 </div>

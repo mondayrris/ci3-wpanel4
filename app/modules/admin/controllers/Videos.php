@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Video class
  *
  * @property Video $video
+ * @property Media $media
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Videos extends Authenticated_admin_controller
@@ -73,6 +74,7 @@ class Videos extends Authenticated_admin_controller
 
     /**
      * Insert video.
+     * @throws ErrorException
      */
     public function add()
     {
@@ -93,8 +95,9 @@ class Videos extends Authenticated_admin_controller
 
     /**
      * Edit a video.
-     * 
+     *
      * @param int $id
+     * @throws ErrorException
      */
     public function edit($id = null)
     {
@@ -145,14 +148,17 @@ class Videos extends Authenticated_admin_controller
     /* append-here */
     /**
      * @return array
+     * @throws ErrorException
      */
     private function _get_save_data()
     {
+        $this->load->library('media');
+
         $data = array();
         $data['titulo'] = $this->input->post('titulo');
         $data['descricao'] = $this->input->post('descricao');
         $data['tags'] = $this->input->post('tags');
-        $data['link'] = $this->get_youtube_code($this->input->post('link'));
+        $data['link'] = $this->media->get_youtube_code($this->input->post('link'));
         $data['status'] = $this->input->post('status');
         return $data;
     }

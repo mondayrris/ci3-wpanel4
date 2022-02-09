@@ -1,6 +1,9 @@
-<?php /** @noinspection PhpUndefinedVariableInspection */
+<?php
+/** @noinspection PhpUndefinedVariableInspection */
 echo $this->wpanel->load_editor();
 ?>
+
+<!--suppress HtmlFormInputWithoutLabel -->
 <section class="content-header">
     <h1>
         <?= wpn_lang('module_title'); ?>
@@ -22,16 +25,16 @@ echo $this->wpanel->load_editor();
             <?= form_open_multipart('admin/posts/add', array('role' => 'form')); ?>
                 <div class="form-group" >
                     <label for="title"><?= wpn_lang('field_title'); ?></label>
-                    <input type="text" name="title" value="" class="form-control" />
+                    <input type="text" name="title" class="form-control" value="<?= set_value('title')?>"/>
                     <?= form_error('title'); ?>
                 </div>
                 <div class="form-group" >
                     <label for="description"><?= wpn_lang('field_description'); ?></label>
-                    <textarea name="description" cols="40" rows="3" class="form-control" ></textarea>
+                    <textarea name="description" cols="40" rows="3" class="form-control"><?= set_value('description')?></textarea>
                 </div>
                 <div class="form-group" >
                     <label for="content"><?= wpn_lang('field_content'); ?></label>
-                    <textarea name="content" cols="40" rows="10" class="form-control" id="editor" ></textarea>
+                    <textarea name="content" cols="40" rows="10" class="form-control" id="editor" ><?= set_value('content')?></textarea>
                 </div>
                 <div class="row " id="">
                     <div class="col-md-3 " id="">
@@ -44,7 +47,7 @@ echo $this->wpanel->load_editor();
                         <div class="form-group" >
                             <label for="category_id"><?= wpn_lang('field_category'); ?></label>
                             <?= form_multiselect('category_id[]', $categorias, null, array('class' => 'form-control')); ?>
-                            <?= anchor('admin/categorias', glyphicon('share') . ' ' . wpn_lang('post_bot_new_category'), array('class' => 'btn btn-xs btn-primary')); ?>
+                            <?= anchor('admin/categories', glyphicon('share') . ' ' . wpn_lang('post_bot_new_category'), array('class' => 'btn btn-xs btn-primary')); ?>
                         </div>
                     </div>
                     <div class="col-md-3 " id="">
@@ -55,17 +58,7 @@ echo $this->wpanel->load_editor();
                         </div>
                     </div>
                     <div class="col-md-3 " id="">
-                        <div class="form-group" >
-                            <label for="status"><?= wpn_lang('field_status'); ?></label>
-                            <?php
-                            // Opções de status
-                            $options = array(
-                                '0' => 'Rascunho',
-                                '1' => 'Publicado'
-                            );
-                            echo form_dropdown('status', $options, null, array('class' => 'form-control'));
-                            ?>
-                        </div>
+                        <?php $this->load->view('widgets/field_publish_status_dropdown'); ?>
                     </div>
                 </div>
                 <hr/>

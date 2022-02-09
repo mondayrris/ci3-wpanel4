@@ -48,16 +48,7 @@ echo $this->wpanel->load_editor();
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <div class="form-group" >
-                            <label for="status"><?= wpn_lang('field_status'); ?></label>
-                            <?php
-                            $options = array(
-                                '0'  => 'Rascunho',
-                                '1'  => 'Publicado'
-                            );
-                            echo form_dropdown('status', $options, null, array('class'=>'form-control'));
-                            ?>
-                        </div>
+                        <?php $this->load->view('widgets/field_publish_status_dropdown'); ?>
                     </div>
                 </div>
                 <hr/>

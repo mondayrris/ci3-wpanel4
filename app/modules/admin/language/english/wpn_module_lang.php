@@ -8,7 +8,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Arquivo de idioma do módulo admin Modulos.
+ * Language file of the admin module.
  * 
  * @language portuguese
  * @author Eliel de Paula <dev@elieldepaula.com.br>
@@ -27,10 +27,17 @@ $lang['module_edit_action'] = "Action module update";
 
 
 /**
- * Campos da tabela.
+ * Table fields.
  */
 $lang['field_id'] = "#";
 $lang['field_name'] = "Module name";
+$lang['field_short_name'] = "Name";
 $lang['field_description'] = "Description";
 $lang['field_link'] = "Link";
-$lang['field_whitelist'] = "White list";
+$lang['field_whitelist'] = "Whitelist";
+$lang['field_author_name'] = "Author";
+$lang['field_author_email'] = "Email";
+$lang['field_author_website'] = "Website";
+$lang['field_description'] = "Description";
+$lang['field_status'] = "Status";
+$lang['field_version'] = "Version";

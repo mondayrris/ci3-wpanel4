@@ -38,19 +38,9 @@
             ?>
             <div class="form-group">
                 <label><?= wpn_lang('field_description'); ?></label>
-                <input type="text" name="descricao" value="<?= $row->descricao; ?>" class="form-control" />
+                <input type="text" name="descricao" value="<?= $row->descricao; ?>" class="form-control" required/>
             </div>
-            <div class="form-group">
-                <label><?= wpn_lang('field_status'); ?></label>
-                <select name="status" class="form-control">
-                    <option value="0" <?php if ($row->status == 0) {
-                        echo 'selected';
-                    } ?> >Indisponível</option>
-                    <option value="1" <?php if ($row->status == 1) {
-                        echo 'selected';
-                    } ?> >Publicado</option>
-                </select>
-            </div>
+            <?php $this->load->view('widgets/field_avail_status_dropdown', ['field_status' => $row->status]); ?>
             <hr/>
             <div class="row">
                 <div class="col-sm-12 col-md-12">

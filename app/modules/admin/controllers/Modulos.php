@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -84,6 +84,9 @@ class Modulos extends Authenticated_admin_controller
     {
         $this->form_validation->set_rules('name', 'Nome', 'required');
         if ($this->form_validation->run() == FALSE) {
+            if ($this->input->method() == 'post') {
+                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/modulos');
+            }
             $this->render();
         } else {
 
@@ -109,9 +112,11 @@ class Modulos extends Authenticated_admin_controller
         $this->form_validation->set_rules('name', 'Nome', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-
             if ($id == NULL) {
                 $this->set_message(wpn_lang('wpn_message_inexistent'), 'danger', 'admin/modulos');
+            }
+            if ($this->input->method() == 'post') {
+                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/modulos');
             }
 
             $query = $this->module->find($id);
@@ -164,6 +169,10 @@ class Modulos extends Authenticated_admin_controller
         $this->form_validation->set_rules('link', 'Link', 'required');
         if ($this->form_validation->run() == FALSE)
         {
+            if ($this->input->method() == 'post') {
+                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/modulos/edit/' . $module_id);
+            }
+
             $this->set_var('module_id', $module_id);
             $this->render();
         } else
@@ -189,16 +198,16 @@ class Modulos extends Authenticated_admin_controller
         $this->form_validation->set_rules('link', 'Link', 'required');
         if ($this->form_validation->run() == FALSE)
         {
-
             if ($id == NULL)
-                $this->set_message('Registro inexistente.', 'danger', 'admin/modulos');
-
+                $this->set_message('Nonexistent record.', 'danger', 'admin/modulos');
+            if ($this->input->method() == 'post') {
+                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/modulos/edit/' . $module_id);
+            }
             $this->set_var('module_id', $module_id);
             $this->set_var('row', $this->module_action->find($id));
 
             $this->render();
-        } else
-        {
+        } else {
 
             $data = $this->_save_module_action($module_id);
 
@@ -218,7 +227,7 @@ class Modulos extends Authenticated_admin_controller
     public function deleteaction($id = NULL, $module_id = NULL)
     {
         if ($id == null)
-            $this->set_message('Registro inexistente.', 'danger', 'admin/modulos');
+            $this->set_message('Nonexistent record.', 'danger', 'admin/modulos');
 
         if ($this->module_action->delete($id))
             $this->set_message(wpn_lang('wpn_message_delete_success'), 'success', 'admin/modulos/edit/' . $module_id);

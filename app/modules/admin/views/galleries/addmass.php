@@ -30,13 +30,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-3 col-md-3">
-                    <div class="form-group">
-                        <label><?= wpn_lang('field_status'); ?></label>
-                        <select name="status" class="form-control">
-                            <option value="0">Indisponível</option>
-                            <option value="1">Publicado</option>
-                        </select>
-                    </div>
+                    <?php $this->load->view('widgets/field_avail_status_dropdown'); ?>
                 </div>
             </div>
             <hr/>

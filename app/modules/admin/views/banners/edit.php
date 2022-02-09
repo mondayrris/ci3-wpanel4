@@ -64,16 +64,7 @@
                     <?= form_error('position'); ?>
                 </div>
                 <div class="col-md-3 " id="">
-                    <div class="form-group" >
-                        <label for="status"><?= wpn_lang('field_status'); ?></label>
-                        <?php
-                        $options = array(
-                            '0'  => 'Indisponível',
-                            '1'  => 'Publicado'
-                        );
-                        ?>
-                        <?= form_dropdown('status', $options, $row->status, array('class'=>'form-control')); ?>
-                    </div>
+                    <?php $this->load->view('widgets/field_avail_status_dropdown', ['field_status' => $row->status]); ?>
                 </div>
             </div>
             <div class="form-group" >

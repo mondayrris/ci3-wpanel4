@@ -80,7 +80,7 @@ class Categories extends Authenticated_admin_controller
             // Prepara a lista de categorias.
             $query = $this->category->find_all();
             $options = array();
-            $options[0] = 'Sem categoria';
+            $options[0] = 'Without category';
             foreach ($query as $row)
             {
                 $options[$row->id] = $row->title;
@@ -112,7 +112,7 @@ class Categories extends Authenticated_admin_controller
             // Prepara a lista de categorias.
             $query = $this->category->find_all();
             $options = array();
-            $options[0] = 'Sem categoria';
+            $options[0] = 'Without category';
             foreach ($query as $row)
             {
                 $options[$row->id] = $row->title;

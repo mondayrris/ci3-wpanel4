@@ -702,7 +702,7 @@ class Authenticated_admin_controller extends MY_Controller
     protected function get_add_post_result($page_index)
     {
         $this->load->model('post');
-        $this->load->model('wpanel');
+        // $this->load->model('wpanel');
 
         $data = array();
         $data['title'] = $this->input->post('title');

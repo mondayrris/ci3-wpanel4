@@ -23,8 +23,11 @@ class Developers extends Authenticated_admin_controller
     function __construct()
     {
         $this->language_file = 'wpn_developers_lang';
-        $this->model_file = 'DevelopersModel';
+        // $this->model_file = 'DevelopersModel';
         parent::__construct();
+
+        $this->load->model('developersModel');
+        // var_dump($this->developersModel); die();
     }
     
     public function index()

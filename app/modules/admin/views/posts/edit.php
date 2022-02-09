@@ -60,7 +60,7 @@ echo $this->wpanel->load_editor();
                         <div class="form-group" >
                             <label for="category_id"><?= wpn_lang('field_category'); ?></label>
                             <?= form_multiselect('category_id[]', $categorias, $cat_select, array('class'=>'form-control')); ?>
-                            <?= anchor('admin/categorias', glyphicon('share') . ' ' . wpn_lang('post_bot_new_category'), array('class' => 'btn btn-xs btn-primary')); ?>
+                            <?= anchor('admin/categories', glyphicon('share') . ' ' . wpn_lang('post_bot_new_category'), array('class' => 'btn btn-xs btn-primary')); ?>
                         </div>
                     </div>
                     <div class="col-md-3 " id="">
@@ -71,17 +71,7 @@ echo $this->wpanel->load_editor();
                         </div>
                     </div>
                     <div class="col-md-3 " id="">
-                        <div class="form-group" >
-                            <label for="status"><?= wpn_lang('field_status'); ?></label>
-                            <?php
-                            // Opções de status
-                            $options = array(
-                            '0'  => 'Rascunho',
-                            '1'  => 'Publicado'
-                            );
-                            echo form_dropdown('status', $options, $row->status, array('class'=>'form-control'));
-                            ?>
-                        </div>
+                        <?php $this->load->view('widgets/field_publish_status_dropdown', ['field_status' => $row->status]); ?>
                     </div>
                 </div>
                 <hr/>

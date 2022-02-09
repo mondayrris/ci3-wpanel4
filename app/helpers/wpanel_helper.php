@@ -11,7 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Wpanel CMS general helper.
  *
  * This helper contains the common functions to Wpanel CMS.
- * 
+ *
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 if (!function_exists('wpn_asset'))
@@ -131,9 +131,9 @@ if (!function_exists('status_post'))
     function status_post($status)
     {
         if ($status == '1')
-            return '<span class="label label-success">Publicado</span>';
+            return '<span class="label label-success">Published</span>';
         else
-            return '<span class="label label-danger">Indisponível</span>';
+            return '<span class="label label-danger">Unavailable</span>';
     }
 
 }
@@ -170,9 +170,9 @@ if (!function_exists('sim_nao'))
     function sim_nao($status)
     {
         if ($status == '1')
-            return '<span class="label label-success">Sim</span>';
+            return '<span class="label label-success">Yes</span>';
         else
-            return '<span class="label label-danger">Não</span>';
+            return '<span class="label label-danger">No</span>';
     }
 
 }
@@ -190,9 +190,9 @@ if (!function_exists('status_user'))
     function status_user($status)
     {
         if ($status == '1')
-            return '<span class="label label-success">Ativo</span>';
+            return '<span class="label label-success">Active</span>';
         else
-            return '<span class="label label-danger">Bloqueado</span>';
+            return '<span class="label label-danger">Blocked</span>';
     }
 
 }
@@ -248,8 +248,8 @@ if (!function_exists('formata_money'))
     /**
      * Format numbers at monetary values.
      *
-     * @param $var double Valor a ser convertido.
-     * @param $format string Formato do retorno.
+      * @param $var double Value to convert.
+     * @param $format string Return format.
      * @return array|string|string[]|void
      */
     function formata_money($var, $format = 'br')

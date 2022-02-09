@@ -42,18 +42,8 @@
                     <?= form_error('link'); ?>
                 </div>
             </div>
-            <div class="form-group">
-                <?php
-                // Status do usuário
-                $options = array(
-                    '0' => 'Indisponível',
-                    '1' => 'Publicado'
-                );
-                ?>
-                <label for="status" class="col-sm-2 col-md-2"><?= wpn_lang('field_status') ?></label>
-                <div class="col-sm-3 col-md-3">
-                    <?= form_dropdown('status', $options, array($row->status), array('class' => 'form-control')); ?>
-                </div>
+            <div style="padding: 0 15px">
+                <?php $this->load->view('widgets/field_avail_status_dropdown', ['field_status' => $row->status]); ?>
             </div>
             <div class="form-group">
                 <div class="col-sm-10 col-md-10 col-sm-offset-2 col-md-offset-2">

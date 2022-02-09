@@ -8,7 +8,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Arquivo de idioma do módulo admin Developers.
+ * Admin Developers module language file.
  *
  * @language Portuguese
  * @author Eliel de Paula <dev@elieldepaula.com.br>
@@ -37,10 +37,10 @@ $lang['msg_dellog_success'] = "Log deleted successfully!";
 $lang['msg_dellog_error'] = "Cannot deletethe log file.";
 $lang['msg_log_disabled'] = "Log messages are disabled in your settings. Change the Treshold value in /app/config/config.php";
 $lang['msg_confirm_updateversion'] = "Confirm the database update to tihs version?";
-$lang['msg_confirm_update_lastversion'] = "Deseja mesmo atualizar a base de dados para a última versão?";
-$lang['msg_updatemigration_success'] = "Base de dados atualizada com sucesso!";
-$lang['msg_updatemigration_error'] = "Erro ao atualizar a base de dados.";
-$lang['msg_uploadmigration_success'] = "Arquivo de migração enviado com sucesso!";
-$lang['msg_uploadmigration_error'] = "Erro ao enviar o arquivo de migração.";
-$lang['msg_delmigration_success'] = "Arquivo de migração excluído com sucesso!";
-$lang['msg_delmigration_error'] = "Erro ao excluir o arquivo de migração.";
+$lang['msg_confirm_update_lastversion'] = "Do you really want to update the database to the latest version?";
+$lang['msg_updatemigration_success'] = "Database updated successfully!";
+$lang['msg_updatemigration_error'] = "Error updating database.";
+$lang['msg_uploadmigration_success'] = "Migration file uploaded successfully!";
+$lang['msg_uploadmigration_error'] = "Error uploading migration file.";
+$lang['msg_delmigration_success'] = "Migration file deleted successfully!";
+$lang['msg_delmigration_error'] = "Error deleting migration file.";

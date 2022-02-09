@@ -54,17 +54,7 @@
                     </div>
                 </div>
                 <div class="col-sm-3 col-md-3">
-                    <div class="form-group">
-                        <label for="status"><?= wpn_lang('field_status'); ?></label>
-                        <select name="status" class="form-control">
-                            <option value="0" <?php if ($row->status == 0) {
-                            echo 'selected';
-                        } ?>>Indisponível</option>
-                            <option value="1" <?php if ($row->status == 1) {
-                            echo 'selected';
-                        } ?>>Publicado</option>
-                        </select>
-                    </div>
+                    <?php $this->load->view('widgets/field_avail_status_dropdown', ['field_status' => $row->status]); ?>
                 </div>
             </div>
             <hr/>

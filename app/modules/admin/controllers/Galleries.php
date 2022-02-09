@@ -13,6 +13,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Picture $picture
  * @property Wpanel $wpanel
  * @property Gallery $gallery
+ * @property Media $media
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Galleries extends Authenticated_admin_controller
@@ -34,6 +35,7 @@ class Galleries extends Authenticated_admin_controller
     public function index()
     {
         $this->load->library('table');
+        $this->load->library('media');
         // Template da tabela
         $this->table->set_template(array('table_open' => '<table id="grid" class="table table-condensed table-striped">'));
         $this->table->set_heading(wpn_lang('field_id'), wpn_lang('field_folder'), wpn_lang('field_title'), wpn_lang('field_created_on'), wpn_lang('field_status'), wpn_lang('wpn_actions'));
@@ -60,13 +62,8 @@ class Galleries extends Authenticated_admin_controller
         //$query = $this->gallery->find_all();
         foreach ($query as $row)
         {
-            $capa_properties = array(
-                'src' => base_url() . '/media/capas/' . $row->capa,
-                'class' => 'img-responsive',
-                'width' => '120',
-                'alt' => $row->titulo
-            );
-            $capa = img($capa_properties);
+            $capa = $this->media->show_image('media/capas/' . $row->capa, $row->titulo);
+
             $this->table->add_row(
                     $row->id, $capa, anchor('admin/galleries/pictures/' . $row->id, glyphicon('picture') . $row->titulo), mdate(config_item('user_date_format'), strtotime($row->created_on)), status_post($row->status), div(array('class' => 'btn-group btn-group-xs')) .
                     anchor('admin/galleries/pictures/' . $row->id, glyphicon('picture'), array('class' => 'btn btn-default')) .
@@ -164,6 +161,7 @@ class Galleries extends Authenticated_admin_controller
     public function pictures($album_id)
     {
         $this->load->library('table');
+        $this->load->library('media');
         // Template da tabela
         $this->table->set_template(
             array('table_open' => '<table id="grid" class="table table-condensed table-striped">')
@@ -191,17 +189,11 @@ class Galleries extends Authenticated_admin_controller
 
         foreach ($query as $row)
         {
-            $capa_properties = array(
-                'src' => base_url() . '/media/albuns/' . $album_id . '/' . $row->filename,
-                'class' => 'img-responsive',
-                'width' => '120',
-                'alt' => $row->descricao
-            );
-            $imagem = img($capa_properties);
+            $imagem = $this->media->show_image('media/albuns/' . $album_id . '/' . $row->filename, $row->descricao);
             $this->table->add_row(
                 $row->id, $imagem, $row->descricao, mdate(config_item('user_date_format'), strtotime($row->created_on)), status_post($row->status), div(array('class' => 'btn-group btn-group-xs')) .
                 anchor('admin/galleries/editpicture/' . $row->id, glyphicon('edit'), array('class' => 'btn btn-default')) .
-                anchor('admin/galleries/delpicture/' . $row->id, glyphicon('trash'), array('class' => 'btn btn-default', 'data-confirm' => 'Deseja mesmo excluir esta imagem? Esta ação não poderá ser desfeita.')) .
+                anchor('admin/galleries/delpicture/' . $row->id, glyphicon('trash'), array('class' => 'btn btn-default', 'data-confirm' => wpn_lang('wpn_message_confirm'))) .
                 div(null, true)
             );
         }

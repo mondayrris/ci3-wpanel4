@@ -50,6 +50,7 @@ $lang['wpn_message_confirm'] = "Deseja mesmo excluir este registro? Esta operaç
 $lang['wpn_message_no_module_permission'] = "Você não tem permissão para acessar este módulo.";
 $lang['wpn_message_inexistent'] = "Registro inexistente";
 $lang['wpn_message_save_success'] = "Registro salvo com sucesso!";
+$lang['wpn_message_get_save_data_success'] = "Registro salvo com sucesso!";
 $lang['wpn_message_save_error'] = "Erro ao salvar o registro.";
 $lang['wpn_message_update_success'] = "Registro atualizado com sucesso!";
 $lang['wpn_message_update_error'] = "Erro ao atualizar o registro.";

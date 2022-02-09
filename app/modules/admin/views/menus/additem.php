@@ -1,7 +1,7 @@
 <?php /** @noinspection PhpUndefinedVariableInspection */?>
 <section class="content-header">
     <h1>
-        /** @noinspection PhpUndefinedVariableInspection */<?= wpn_lang('module_title'); ?>
+        <?= wpn_lang('module_title'); ?>
         <small><?= wpn_lang('module_description'); ?></small>
     </h1>
     <ol class="breadcrumb">
@@ -119,7 +119,7 @@
                     <button type="submit" class="btn btn-primary"><?= wpn_lang('wpn_bot_save'); ?></button>
                     <?= anchor('admin/menus', wpn_lang('wpn_bot_cancel'), array('class' => 'btn btn-danger')); ?>
                 </div>
-            </form>
+            <?= form_close()?>
         </div>
     </div>
 </section>

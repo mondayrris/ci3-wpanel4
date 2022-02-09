@@ -48,3 +48,37 @@ $lang['message_deactivate_success'] = 'Account deactivated successfuly';
 $lang['message_deactivate_error'] = 'Account deactivated error';
 $lang['message_activate_success'] = 'Account activated successfuly';
 $lang['message_activate_error'] = 'Account activated error';
+
+/**
+ * Specific buttons.
+ */
+$lang['wpn_bot_new'] = "New account";
+$lang['bot_banned_ip'] = "Banned IP's";
+$lang['bot_allowed_ip'] = "Allowed IP's";
+$lang['tab_userdata'] = "User data";
+$lang['tab_permissions'] = "Permissions";
+$lang['bot_change_password'] = "Change password";
+$lang['bot_activate'] = "Activate user";
+$lang['bot_deactivate'] = "Deactivate user";
+$lang['modal_change_password'] = "Change password";
+
+/**
+ * Others
+ */
+$lang['wpn_message_confirm'] = "Do you really want to delete this account? This operation cannot be undone.";
+$lang['wpn_message_inexistent'] = "Non existent user account";
+$lang['wpn_message_save_success'] = "User account created successfully!";
+$lang['wpn_message_save_error'] = "Error creating user account.";
+$lang['wpn_message_update_success'] = "User account updated successfully!";
+$lang['wpn_message_update_error'] = "Error updating user account.";
+$lang['wpn_message_delete_success'] = "User account deleted successfully!";
+$lang['wpn_message_delete_error'] = "Error deleting user account.";
+$lang['message_password_change_success'] = "Password changed successfully!";
+$lang['message_password_change_error'] = "Error changing password.";
+$lang['message_password_change_profile_error'] = "Error changing your password.";
+$lang['message_update_profile_success'] = "Your account has been updated successfully!";
+$lang['message_update_profile_error'] = "Error updating your user account.";
+$lang['message_activate_success'] = "Account activated successfully!";
+$lang['message_activate_error'] = "Unable to activate account.";
+$lang['message_deactivate_success'] = "Account successfully deactivated!";
+$lang['message_deactivate_error'] = "The account could not be deactivated.";

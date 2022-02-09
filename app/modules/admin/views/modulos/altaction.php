@@ -17,8 +17,7 @@
             <h3 class="box-title"><?= wpn_lang('module_edit_action'); ?></h3>
         </div>
         <div class="box-body">
-			<form action="<?= site_url('admin/modulos/altaction/'.$row->id.'/'.$row->module_id); ?>" role="form" class="form-horizontal" method="post" accept-charset="utf-8">
-				
+            <?= form_open('admin/modulos/altaction/'.$row->id.'/'.$row->module_id, ['role' => 'form', 'class' => 'form-horizontal'])?>
 				<div class="form-group">
 					<label for="id" class="col-sm-2 col-md-2 control-label"><?= wpn_lang('field_description'); ?></label>
 					<div class="col-sm-10 col-md-10">
@@ -51,7 +50,8 @@
 						<?= anchor('admin/modulos/edit/'.$row->module_id, wpn_lang('wpn_bot_cancel'), array('class'=>'btn btn-danger')); ?>
 					</div>
 				</div>
-			</form>
+
+			<?= form_close()?>
         </div>
     </div>
 </section>
