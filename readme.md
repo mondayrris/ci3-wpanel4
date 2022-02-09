@@ -4,9 +4,10 @@
 
 ## Todo
 
-- [ ] Gallery max post size is 2MB
+- [ ] Gallery upload max post size is 2MB
 - [ ] Banner photo (no banner image, banner image height is high)
-- [ ] Fix on page link break, missing lang message
+- [ ] Migrate default sqlite3 to mysqli to enable mysql database backup
+- [x] Fix on page link break, missing lang message
 - [x] Code convention, fix, refactorization
 
 ## Configuration
