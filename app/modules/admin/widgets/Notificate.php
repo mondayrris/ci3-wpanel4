@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Classe Notificate.
- * 
+ *
+ * @property CI_Loader $load
+ * @property Notification $notification
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Notificate extends Widget
@@ -18,7 +20,7 @@ class Notificate extends Widget
     /**
      * Método principal do widget.
      * 
-     * @return string
+     * @return void
      */
     public function main()
     {

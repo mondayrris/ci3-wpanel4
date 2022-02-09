@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>

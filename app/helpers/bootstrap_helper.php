@@ -23,16 +23,18 @@ if (!function_exists('_attributes'))
      */
     function _attributes($attributes)
     {
+        $atr = '';
         if (is_array($attributes))
         {
-            $atr = '';
             foreach ($attributes as $key => $value)
             {
                 $atr .= $key . "=\"" . $value . "\" ";
             }
-            return $atr;
         } elseif (is_string($attributes) and strlen($attributes) > 0)
             $atr = ' ' . $attributes;
+
+
+        return $atr;
     }
 
 }
@@ -145,8 +147,7 @@ if (!function_exists('small_text'))
     function small_text($text = '&nbsp;')
     {
         $str = "";
-        $str = "<small>" . $text . "</small>\n";
-        return $str;
+        return "<small>" . $text . "</small>\n";
     }
 
 }
@@ -164,8 +165,7 @@ if (!function_exists('button'))
     function button($caption, $attributes = array())
     {
         $str = "";
-        $str = "<button " . _attributes($attributes) . ">" . $caption . "</button>\n";
-        return $str;
+        return "<button " . _attributes($attributes) . ">" . $caption . "</button>\n";
     }
 
 }
@@ -179,8 +179,7 @@ if (!function_exists('context_color'))
     function context_color($text, $tag = 'p', $style = 'primary')
     {
         $str = "";
-        $str = "<" . $tag . " class=\"text-" . $style . "\">" . $text . "</" . $tag . ">\n";
-        return $str;
+        return "<" . $tag . " class=\"text-" . $style . "\">" . $text . "</" . $tag . ">\n";
     }
 
 }
@@ -194,8 +193,7 @@ if (!function_exists('context_bg'))
     function context_bg($text, $tag = 'p', $style = 'primary')
     {
         $str = "";
-        $str = "<" . $tag . " class=\"bg-" . $style . "\">" . $text . "</" . $tag . ">\n";
-        return $str;
+        return "<" . $tag . " class=\"bg-" . $style . "\">" . $text . "</" . $tag . ">\n";
     }
 
 }
@@ -242,8 +240,7 @@ if (!function_exists('bread_crumb'))
      * */
     function bread_crumb($itens)
     {
-        $str = "";
-        $str .= "<ol class=\"breadcrumb\">\n";
+        $str = "<ol class=\"breadcrumb\">\n";
 
         foreach ($itens as $item)
         {
@@ -298,8 +295,7 @@ if (!function_exists('page_header'))
 	 **/
 	function page_header($title, $size = '1', $subtitle = '')
 	{
-		$str = "";
-		$str .= "<div class=\"page-header\">\n";
+        $str = "<div class=\"page-header\">\n";
 		$str .= "    <h".$size.">".$title." <small>".$subtitle."</small></h".$size.">\n";
 		$str .= "</div>\n";
 
@@ -322,8 +318,7 @@ if (!function_exists('alerts'))
             $demiss = " alert-dismissible";
         }
 
-        $str = "";
-        $str .= "<div class=\"alert alert-" . $style . " " . $demiss . "\" role=\"alert\">\n";
+        $str = "<div class=\"alert alert-" . $style . " " . $demiss . "\" role=\"alert\">\n";
         $str .= "    <button type=\"button\" class=\"close\" data-dismiss=\"alert\"><span aria-hidden=\"true\">&times;</span><span class=\"sr-only\">Close</span></button>";
         $str .= "    " . $message . "\n";
         $str .= "</div>\n";

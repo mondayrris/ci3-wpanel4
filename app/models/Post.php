@@ -26,10 +26,10 @@ class Post extends MY_Model
     /**
      * Return posts and categories by category_id.
      *
-     * @return mixed
      * @param $category_id int Código da categoria.
      * @param $order  string Tipo de ordenação do resultado ASC ou DESC.
      * @param $limit array Um array com os detalhes de limite, Ex: array('offset'=>'0', 'limit'=>'10')
+     * @return CI_DB_result
      * @author Eliel de Paula <elieldepaula@gmail.com>
      * */
     public function get_by_category($category_id = 0, $order = 'asc', $limit = array())
@@ -50,15 +50,15 @@ class Post extends MY_Model
     /**
      * Search into title, content and tags from posts.
      *
-     * @return mixed
+     * @return CI_DB_result
      * @author Eliel de Paula <elieldepaula@gmail.com>
      * */
     public function busca_posts($search = null)
     {
         if ($search) {
-            $this->db->like('title', $search, 'both');
-            $this->db->or_like('content', $search, 'both');
-            $this->db->or_like('tags', $search, 'both');
+            $this->db->like('title', $search);
+            $this->db->or_like('content', $search);
+            $this->db->or_like('tags', $search);
         }
 
         $this->db->where('status', '1');

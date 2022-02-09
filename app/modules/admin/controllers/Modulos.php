@@ -11,16 +11,12 @@ defined('BASEPATH') || exit('No direct script access allowed');
  * Modules itens class.
  *
  * @author Eliel de Paula <dev@elieldepaula.com.br>
+ *
+ * @property Module $module
+ * @property Module_action $module_action
  */
 class Modulos extends Authenticated_admin_controller
 {
-
-    /** @var Module */
-    public $module;
-
-    /** @var Module_action */
-    public $module_action;
-
     /**
      * Class constructor.
      */
@@ -38,7 +34,7 @@ class Modulos extends Authenticated_admin_controller
     /**
      * List of modules.
      *
-     * @return mixed
+     * @return void
      */
     public function index()
     {
@@ -91,17 +87,7 @@ class Modulos extends Authenticated_admin_controller
             $this->render();
         } else {
 
-            $data = array();
-            $data['name'] = $this->input->post('name');
-            $data['description'] = $this->input->post('description');
-            $data['author_name'] = $this->input->post('author_name');
-            $data['author_email'] = $this->input->post('author_email');
-            $data['author_website'] = $this->input->post('author_website');
-            $data['status'] = $this->input->post('status');
-            $data['version'] = $this->input->post('version');
-            $data['icon'] = ''; //TODO: Coming soon.
-            $data['show_in_menu'] = '1'; //TODO: Coming soon.
-            $data['order'] = 0;
+            $data = $this->_save_module();
 
             $new_module = $this->module->insert($data);
             if (!$new_module) {
@@ -136,17 +122,7 @@ class Modulos extends Authenticated_admin_controller
 
         } else {
 
-            $data = array();
-            $data['name'] = $this->input->post('name');
-            $data['description'] = $this->input->post('description');
-            $data['author_name'] = $this->input->post('author_name');
-            $data['author_email'] = $this->input->post('author_email');
-            $data['author_website'] = $this->input->post('author_website');
-            $data['status'] = $this->input->post('status');
-            $data['version'] = $this->input->post('version');
-            $data['icon'] = ''; //TODO: Coming soon.
-            $data['show_in_menu'] = '1'; //TODO: Coming soon.
-            $data['order'] = 0;
+            $data = $this->_save_module();
 
             if (!$this->module->update($id, $data)) {
                 $this->set_message(wpn_lang('wpn_message_update_error'), 'danger', 'admin/modulos');
@@ -192,14 +168,7 @@ class Modulos extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['module_id'] = $module_id;
-            $data['description'] = $this->input->post('description');
-            $data['link'] = $this->input->post('link');
-            if ($this->input->post('whitelist') == '1')
-                $data['whitelist'] = '1';
-            else
-                $data['whitelist'] = '0';
+            $data = $this->_save_module_action($module_id);
 
             if ($this->module_action->insert($data))
                 $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/modulos/edit/' . $module_id);
@@ -231,14 +200,7 @@ class Modulos extends Authenticated_admin_controller
         } else
         {
 
-            $data = array();
-            $data['module_id'] = $module_id;
-            $data['description'] = $this->input->post('description');
-            $data['link'] = $this->input->post('link');
-            if ($this->input->post('whitelist') == '1')
-                $data['whitelist'] = '1';
-            else
-                $data['whitelist'] = '0';
+            $data = $this->_save_module_action($module_id);
 
             if ($this->module_action->update($id, $data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/modulos/edit/' . $module_id);
@@ -265,7 +227,7 @@ class Modulos extends Authenticated_admin_controller
     }
 
     /**
-     * List the actions (itens) from an module.
+     * List the actions (itens) from a module.
      *
      * @param int $module_id
      */
@@ -287,6 +249,42 @@ class Modulos extends Authenticated_admin_controller
             );
         }
         return $this->table->generate();
+    }
+
+    /**
+     * @return array
+     */
+    private function _save_module()
+    {
+        $data = array();
+        $data['name'] = $this->input->post('name');
+        $data['description'] = $this->input->post('description');
+        $data['author_name'] = $this->input->post('author_name');
+        $data['author_email'] = $this->input->post('author_email');
+        $data['author_website'] = $this->input->post('author_website');
+        $data['status'] = $this->input->post('status');
+        $data['version'] = $this->input->post('version');
+        $data['icon'] = ''; //TODO: Coming soon.
+        $data['show_in_menu'] = '1'; //TODO: Coming soon.
+        $data['order'] = 0;
+        return $data;
+    }
+
+    /**
+     * @param $module_id
+     * @return array
+     */
+    private function _save_module_action($module_id)
+    {
+        $data = array();
+        $data['module_id'] = $module_id;
+        $data['description'] = $this->input->post('description');
+        $data['link'] = $this->input->post('link');
+        if ($this->input->post('whitelist') == '1')
+            $data['whitelist'] = '1';
+        else
+            $data['whitelist'] = '0';
+        return $data;
     }
 
 }

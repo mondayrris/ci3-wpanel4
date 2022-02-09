@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,8 +10,10 @@ defined('BASEPATH') || exit('No direct script access allowed');
 /**
  * Migration_Newmodulesetup class.
  *
- * This class modify initial database to the new modules setup schema.
+ * This class modify initial database to the new modules' setup schema.
  *
+ * @property CI_DB_query_builder $db
+ * @property CI_DB_forge $dbforge
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Migration_Newmodulesetup extends CI_Migration

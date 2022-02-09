@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -29,6 +29,8 @@ class Logon extends MY_Controller
      */
     public function index()
     {
+        // Auth library are autoloaded using Controller
+        //  var_dump($this->auth); die();
 
         if ($this->auth->accounts_empty() == TRUE)
             redirect('setup');
@@ -41,10 +43,10 @@ class Logon extends MY_Controller
             $this->layout('logon')->render();
         } else {
             if ($this->auth->login($this->input->post('email'), $this->input->post('password'))) {
-                return redirect('admin');
+                redirect('admin');
             } else {
                 $this->session->set_flashdata('msg_auth', wpn_lang('logon_login_error'));
-                return redirect('admin/login');
+                redirect('admin/login');
             }
         }
     }

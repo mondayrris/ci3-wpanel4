@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Wpanel notice class.
- * 
+ *
+ * @property CI_Loader $load
+ * @property $session
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpnnotice extends Widget
@@ -18,7 +20,7 @@ class Wpnnotice extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return void
      */
     public function main()
     {

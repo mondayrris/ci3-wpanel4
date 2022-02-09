@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,6 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Config class using json file.
  *
+ * @property $configuracao
+ * @property Wpanel $wpanel
+ * @property Post $post
+ * @property Category $category
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Configuracoes extends Authenticated_admin_controller
@@ -118,7 +122,7 @@ class Configuracoes extends Authenticated_admin_controller
             // Configurações da página inicial do site.
             $configs->home_tipo = $this->input->post('home_tipo');
             if ($this->input->post('home_tipo') == 'page')
-                $configs->home_id = $this->input->post('home_post'); 
+                $configs->home_id = $this->input->post('home_post');
             else
                 $configs->home_id = $this->input->post('home_category');
             // Smtp
@@ -138,8 +142,8 @@ class Configuracoes extends Authenticated_admin_controller
             $configs->media_show_photo = $this->input->post('media_show_photo');
             $configs->media_show_video = $this->input->post('media_show_video');
             // Mantém os dados das imagens.
-            $configs->logomarca = $configs->logomarca;
-            $configs->background = $configs->background;
+            // $configs->logomarca = $configs->logomarca;
+            // $configs->background = $configs->background;
             if ($this->configuracao->save_config($configs))
                 $this->set_message(wpn_lang('message_save_success'), 'success', 'admin/configuracoes');
             else
@@ -160,7 +164,7 @@ class Configuracoes extends Authenticated_admin_controller
         else
             $this->set_message(wpn_lang('message_logo_success'), 'danger', 'admin/configuracoes');
     }
-    
+
     /**
      * Change favicon image.
      */

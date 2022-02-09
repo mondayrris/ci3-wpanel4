@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,7 +10,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * This is the auth library. It contains the methods that manage the users accounts
  * and his acces into the website.
- * 
+ *
+ * @property Module_action $module_action
+ * @property Logaccess $logaccess
+ * @property Ipban $ipban
+ * @property Ipallowed $ipallowed
+ * @property Permission $permission
+ * @property CI_Session $session
+ * @property CI_URI $uri
+ * @property Wpanel $wpanel
+ * @property CI_Loader $load
+ * @property Account $account
+ * @property Ipattempt $ipattempt
+ * @property mixed $config
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Auth
@@ -35,7 +47,7 @@ class Auth
     protected $auth_password_hash_salt;
 
     /**
-     * Set an white-list for URI
+     * Set a white-list for URI
      * @var mixed 
      */
     protected $auth_white_list = array();
@@ -65,7 +77,7 @@ class Auth
      * an array() passed on load of the class.
      *
      * @param $config array()
-     * @return void
+     * @return Auth
      */
     public function initialize($config = array())
     {
@@ -142,14 +154,14 @@ class Auth
     }
 
     /**
-     * Update an user account.
+     * Update a user account.
      *
      * @param int $account_id
      * @param string $email
      * @param string $role
      * @param mixed $extra_data
      * @param array $permissions
-     * @return mixed
+     * @return bool
      * @throws Exception
      */
     public function update($account_id, $email, $role, $extra_data = array(), $permissions = array())
@@ -181,12 +193,13 @@ class Auth
     }
 
     /**
-     * Change an password from an account.
+     * Change a password from an account.
      *
      * @param int $account_id
      * @param string $password
      * @param bool $notify_email
-     * @return mixed
+     * @return bool
+     * @noinspection PhpUnusedParameterInspection
      */
     public function change_password($account_id, $password, $notify_email = FALSE)
     {
@@ -200,7 +213,7 @@ class Auth
      * Activate an account.
      *
      * @param int $account_id
-     * @return mixed
+     * @return bool
      * @throws Exception
      */
     public function activate($account_id = NULL)
@@ -214,10 +227,10 @@ class Auth
     /**
      * Activate an account by Token.
      * 
-     * @author Eliel de Paula <dev@elieldepaula.com.br>
      * @param string $token
-     * @return mixed
+     * @return bool
      * @throws Exception
+     *@author Eliel de Paula <dev@elieldepaula.com.br>
      */
     public function activate_token_account($token = NULL)
     {
@@ -233,7 +246,7 @@ class Auth
      * Deactiate an account.
      *
      * @param int $account_id
-     * @return mixed
+     * @return bool
      * @throws Exception
      */
     public function deactivate($account_id = NULL)
@@ -248,7 +261,7 @@ class Auth
      * Delete an account.
      *
      * @param int $account_id
-     * @return mixed
+     * @return bool|string
      */
     public function delete($account_id = NULL)
     {
@@ -284,12 +297,13 @@ class Auth
     }
 
     /**
-     * Recovery password from an account by token and send an confirmation
+     * Recovery password from an account by token and send a confirmation
      * message by email.
      * 
-     * @author Eliel de Paula <dev@elieldepaula.com.br>
      * @param string $token
      * @return boolean
+     * @noinspection PhpParamsInspection
+     * @author Eliel de Paula <dev@elieldepaula.com.br>
      */
     public function recovery($token = NULL)
     {
@@ -323,13 +337,15 @@ class Auth
     }
 
     /**
-     * This function sets an regular account login.
+     * This function sets a regular account login.
      *
      * @param string $email
      * @param string $password
      * @param bool $remember
      * @param string $backlink
      * @return boolean
+     * @noinspection PhpUnusedParameterInspection
+     * @noinspection PhpUnusedParameterInspection
      */
     public function login($email, $password, $remember = FALSE, $backlink = NULL)
     {
@@ -459,7 +475,8 @@ class Auth
      * Return an account list.
      *
      * @param string $role
-     * @return mixed
+     * @return array|object
+     * @noinspection PhpUnused
      */
     public function account_all($role = null)
     {
@@ -470,7 +487,7 @@ class Auth
     }
 
     /**
-     * Return the 'extra_data' collumn as object from an logged user or 
+     * Return the 'extra_data' collumn as object from a logged user or
      * indicated by ID.
      * 
      * @author Eliel de Paula <dev@elieldepaula.com.br>
@@ -501,7 +518,8 @@ class Auth
     /**
      * Call the check_permission() method inside a Hook.
      *
-     * @return mixed
+     * @return bool|void
+     * @noinspection PhpUnused
      */
     public function check_permission_by_hook()
     {
@@ -525,12 +543,13 @@ class Auth
      *
      * @param string $url
      * @return boolean
+     * @noinspection PhpExpressionResultUnusedInspection
      */
     public function check_permission($url = NULL)
     {
         if ($this->user_id() == '')
         {
-            $this->session->flashdata('msg_auth', 'User is not logged.');
+            $this->session->set_flashdata('msg_auth', 'User is not logged.');
             redirect('admin/logout');
             exit;
         } else
@@ -538,6 +557,7 @@ class Auth
             if ($url == NULL)
             {
                 $url = $this->uri->uri_string();
+                // FIXME
                 ($this->uri->total_segments() == 3) ? $url . '/' : $url;
             }
             if ($this->session->userdata('role') == 'ROOT')
@@ -552,7 +572,7 @@ class Auth
                 return TRUE;
             if ($this->permission->validate_permission($this->user_id(), $this->_prepare_url($url)) === false)
             {
-                $this->session->flashdata('msg_sistema', 'User don\'t has permission.');
+                $this->session->set_flashdata('msg_sistema', 'User don\'t has permission.');
                 redirect('admin/dashboard');
                 exit;
             }
@@ -581,7 +601,7 @@ class Auth
      * @param String $url Some link Eg. 'admin/users'
      * @param Integer $account_id
      * @param Bool $override_root
-     * @return Mixed
+     * @return bool
      */
     public function link_permission($url, $account_id = NULL, $override_root = FALSE)
     {
@@ -611,6 +631,7 @@ class Auth
      * This function generate an unique token.
      * 
      * @return string
+     * @noinspection PhpParamsInspection
      */
     public function _generate_token()
     {
@@ -623,7 +644,7 @@ class Auth
     }
 
     /**
-     * Return an random number based on an sha256 hash.
+     * Return a random number based on a sha256 hash.
      * 
      * @return string
      */
@@ -647,8 +668,7 @@ class Auth
      * Return a hashed password.
      *
      * @param $password
-     * @param string $salt
-     * @return string
+     * @return string|void
      */
     private function _hash_password($password)
     {
@@ -656,23 +676,20 @@ class Auth
         {
             case 'md5':
                 return md5($password . $this->auth_password_hash_salt);
-                break;
             case 'sha512':
                 return hash('sha512', $password . $this->auth_password_hash_salt);
-                break;
             case 'php' :
                 return password_hash($password, PASSWORD_DEFAULT);
-                break;
         }
     }
     
     /**
-     * Check an password hash.
+     * Check a password hash.
      * 
      * @param int $account_id Account ID.
      * @param string $password
      * @param string $hash
-     * @return boolean
+     * @return boolean|void
      */
     private function _check_hash_password($account_id, $password, $hash)
     {
@@ -683,13 +700,11 @@ class Auth
                     return TRUE;
                 else
                     return FALSE;
-                break;
             case 'sha512':
                 if ($hash == hash('sha512', $password . $this->auth_password_hash_salt))
                     return TRUE;
                 else
                     return FALSE;
-                break;
             case 'php' :
                 if (password_verify($password, $hash)) {
                     if (password_needs_rehash($hash, PASSWORD_DEFAULT)) {
@@ -700,20 +715,20 @@ class Auth
                     return TRUE;
                 } else
                     return FALSE;
-                break;
         }
     }
 
     /**
-     * Setup a login session.
+     * Set up a login session.
      *
      * @param object $account
-     * @return bool
+     * @return void
      */
     private function _set_session($account)
     {
-        if (!$account->id)
-            return FALSE;
+        if (!$account->id) {
+            return;
+        }
         $object = (object) json_decode($account->extra_data);
         $data = array(
             'id' => $account->id,
@@ -731,7 +746,7 @@ class Auth
      *
      * @param int $action_id
      * @param int $account_id
-     * @return int
+     * @return void
      */
     private function _create_permission($action_id, $account_id)
     {
@@ -740,18 +755,18 @@ class Auth
             'module_action_id' => $action_id,
             'account_id' => $account_id
         );
-        return $this->permission->insert($data);
+        $this->permission->insert($data);
     }
 
     /**
      * Remove permissions from an account. Usefull to update account.
      *
      * @param int $account_id
-     * @return mixed
+     * @return void
      */
     private function _remove_permission($account_id)
     {
-        return $this->permission->delete_by('account_id', $account_id);
+        $this->permission->delete_by('account_id', $account_id);
     }
 
     /**
@@ -775,13 +790,13 @@ class Auth
     /**
      * Ban an IP address after many failed attempts to login.
      *
-     * @return mixed
+     * @return void
      */
     private function _ban_ip()
     {
         $data = array();
         $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-        return $this->ipban->insert($data);
+        $this->ipban->insert($data);
     }
 
     /**
@@ -792,18 +807,15 @@ class Auth
     private function _add_attempt()
     {
         $query = $this->ipattempt->find_by('ip_address', $_SERVER['REMOTE_ADDR']);
+        $data = array();
+        $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
+        $data['last_failed_attempt'] = date('Y-m-d H:i:s');
         if ($query)
         {
-            $data = array();
-            $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-            $data['last_failed_attempt'] = date('Y-m-d H:i:s');
             $data['number_of_attempts'] = $query->number_of_attempts + 1;
             $this->ipattempt->update($query->id, $data);
         } else
         {
-            $data = array();
-            $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-            $data['last_failed_attempt'] = date('Y-m-d H:i:s');
             $data['number_of_attempts'] = 1;
             $this->ipattempt->insert($data);
         }
@@ -812,7 +824,7 @@ class Auth
     /**
      * Clear the login attempts from an Ip address.
      *
-     * @return int
+     * @return void
      */
     private function _clear_attempt()
     {
@@ -834,18 +846,18 @@ class Auth
      * Log the account logins.
      *
      * @param int $account_id
-     * @param string $ip_address
-     * @return mixed
+     * @return void
+     * @noinspection PhpUnusedParameterInspection
      */
     private function _add_access($account_id)
     {
         $data = array();
         $data['ip_address'] = $_SERVER['REMOTE_ADDR'];
-        return $this->logaccess->insert($data);
+        $this->logaccess->insert($data);
     }
 
     /**
-     * Prepare an URL to set an permission list.
+     * Prepare a URL to set a permission list.
      * 
      * @param string $url
      * @return string
@@ -889,32 +901,27 @@ class Auth
     /**
      * This function generate random passwords.
      *
-     * @author Thiago Belem <contato@thiagobelem.net>
-     *
-     * @param integer $tamanho Tamanho da senha a ser gerada
-     * @param boolean $maiusculas Se terá letras maiúsculas
-     * @param boolean $numeros Se terá números
-     * @param boolean $simbolos Se terá símbolos
      *
      * @return string A senha gerada
+     *@author Thiago Belem <contato@thiagobelem.net>
+     *
      */
-    private function _generate_pass($tamanho = 8, $maiusculas = true, $numeros = true, $simbolos = false)
+    private function _generate_pass()
     {
         $lmin = 'abcdefghijklmnopqrstuvwxyz';
         $lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $num = '1234567890';
         $simb = '!@#$%*-';
         $retorno = '';
-        $caracteres = '';
-        $caracteres .= $lmin;
-        if ($maiusculas)
+        $caracteres = $lmin;
+        if (true)
             $caracteres .= $lmai;
-        if ($numeros)
+        if (true)
             $caracteres .= $num;
-        if ($simbolos)
+        if (false)
             $caracteres .= $simb;
         $len = strlen($caracteres);
-        for ($n = 1; $n <= $tamanho; $n++)
+        for ($n = 1; $n <= 8; $n++)
         {
             $rand = mt_rand(1, $len);
             $retorno .= $caracteres[$rand - 1];

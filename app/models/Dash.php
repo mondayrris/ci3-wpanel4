@@ -26,6 +26,7 @@ class Dash extends MY_Model
     public function calcula_totais($modulo, $tipo = 0)
     {
         $wheres = array();
+        // FIXME
         $wheres['user_id'] = $this->auth->get_account_id();
         if ($modulo == 'posts')$wheres['page'] = $tipo;
         return $this->count_by($wheres);

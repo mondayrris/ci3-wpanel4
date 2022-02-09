@@ -9,7 +9,9 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
 /**
  * Main menu class.
- * 
+ *
+ * @property Menu_item $menu_item
+ * @property CI_Loader $load
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpnmainmenu extends Widget
@@ -32,7 +34,7 @@ class Wpnmainmenu extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return false|string
      */
     public function main()
     {
@@ -45,7 +47,7 @@ class Wpnmainmenu extends Widget
      * @param int $menu_id
      * @param string $ul_style
      * @param string $li_style
-     * @return mixed
+     * @return false|string
      */
     private function get_menu($menu_id = null, $ul_style = '', $li_style = '')
     {
@@ -57,8 +59,7 @@ class Wpnmainmenu extends Widget
                 ->select('href, target, label, tipo')
                 ->order_by('ordem', 'asc')
                 ->find_many_by('menu_id', $menu_id);
-        $html = "";
-        $html .= "<ul class=\"" . $ul_style . "\">";
+        $html = "<ul class=\"" . $ul_style . "\">";
         foreach ($query as $row)
         {
 

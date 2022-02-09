@@ -1,3 +1,4 @@
+<?php /** @noinspection PhpUndefinedVariableInspection */?>
 <section class="content-header">
     <h1>
         <?= wpn_lang('module_title'); ?>
@@ -33,7 +34,7 @@
 			echo col(2);
 			echo div(array('class' => 'form-group hidden'));
 			echo form_label('Posição', 'posicao');
-			echo form_dropdown('posicao', $options_pos, $row->posicao, 'disabled', 'form-control');
+			echo form_dropdown('posicao', $options_pos, $row->posicao, 'disabled class="form-control"');
 			echo form_error('posicao');
 			echo close_div(2);
 
@@ -48,7 +49,7 @@
 			echo col(3);
 			echo div(array('class' => 'form-group hidden'));
 			echo form_label('Estilo', 'estilo');
-			echo form_dropdown('estilo', $options_estilo, $row->estilo, 'disabled', 'form-control');
+			echo form_dropdown('estilo', $options_estilo, $row->estilo, 'disabled class="form-control"');
 			echo close_div(3);
 
 			echo row();

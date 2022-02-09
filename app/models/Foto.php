@@ -19,16 +19,17 @@ class Foto extends MY_Model
     public $primary_key = 'id';
 
     /**
-     * This method removes all images and directory from a album.
+     * This method removes all images and directory from an album.
      * 
      * @param int $album_id
-     * @return mixed
+     * @return int
      */
     public function delete_by_album($album_id)
     {
-
+        // FIXME
         $query = $this->get_by_field('album_id', $album_id)->result();
         foreach ($query as $row) {
+            // FIXME
             $this->remove_media('albuns/' . $album_id . '/' . $row->filename);
         }
 

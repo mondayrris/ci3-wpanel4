@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -12,6 +12,8 @@ defined('BASEPATH') || exit('No direct script access allowed');
  *
  * Contém os métodos básicos do site.
  *
+ * @property int $wpn_cols_mosaic
+ * @property string $wpn_posts_view
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Main extends MY_Controller
@@ -25,7 +27,7 @@ class Main extends MY_Controller
      */
     public $post;
     /**
-     * @var Categorytegory
+     * @var Category
      */
     public $category;
     /**
@@ -142,6 +144,7 @@ class Main extends MY_Controller
      *
      * @param $var mixed Link ou ID da postagem.
      * @param $use_id boolean Indica que $var é um Id.
+     * @noinspection PhpParamsInspection
      */
     public function post($var = null, $use_id = false)
     {
@@ -350,7 +353,7 @@ class Main extends MY_Controller
         $this->wpanel->set_meta_description($query_video->titulo);
         $this->wpanel->set_meta_keywords('videos, filmes');
         $this->wpanel->set_meta_title($query_video->titulo);
-        $this->wpanel->set_meta_image('http://img.youtube.com/vi/' . $code . '/0.jpg');
+        $this->wpanel->set_meta_image('https://img.youtube.com/vi/' . $code . '/0.jpg');
         $this->render();
     }
 
@@ -368,6 +371,7 @@ class Main extends MY_Controller
             $this->wpanel->set_meta_keywords(' Contato, Fale Conosco');
             $this->wpanel->set_meta_title('Contato');
             $this->set_var('contact_content', wpn_config('texto_contato'));
+            // FIXME
             $this->set_var('captcha', $this->form_validation->get_captcha());
             $this->render();
         } else {
@@ -375,8 +379,7 @@ class Main extends MY_Controller
             $email = $this->input->post('email');
             $telefone = $this->input->post('telefone');
             $mensagem = $this->input->post('mensagem');
-            $msg = "";
-            $msg .= "Mensagem enviada pelo site.\n\n";
+            $msg = "Mensagem enviada pelo site.\n\n";
             $msg .= "Nome: $nome\n";
             $msg .= "Email: $email\n";
             $msg .= "Telefone: $telefone\n";

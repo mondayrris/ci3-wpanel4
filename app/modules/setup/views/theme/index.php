@@ -1,3 +1,4 @@
+<?php /** @noinspection ALL */ ?>
 <!DOCTYPE html>
 <html>
     <head>

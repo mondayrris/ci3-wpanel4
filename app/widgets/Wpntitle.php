@@ -9,7 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Classe Wpntitle.
- * 
+ *
+ * @property Wpanel $wpanel
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpntitle extends Widget

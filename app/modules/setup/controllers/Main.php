@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -7,11 +7,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * This class creates a initial database and a new admin user if the account 
+ * This class creates an initial database and a new admin user if the account
  * table accounts was empty. Usually this occurs in the first run of Wpanel CMS
  * using the url [base-url]/index.php/setup
  *
  * @author Eliel de Paula <dev@elieldepaula.com.br>
+ *
+ * @property Configuracao configuracao
  */
 class Main extends MY_Controller
 {
@@ -26,6 +28,8 @@ class Main extends MY_Controller
 
     /**
      * Installation form.
+     * @throws Exception
+     * @throws Exception
      */
     public function index()
     {

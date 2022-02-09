@@ -1,6 +1,7 @@
+<?php /** @noinspection PhpUndefinedVariableInspection */?>
 <section class="content-header">
     <h1>
-        <?= wpn_lang('module_title'); ?>
+        /** @noinspection PhpUndefinedVariableInspection */<?= wpn_lang('module_title'); ?>
         <small><?= wpn_lang('module_description'); ?></small>
     </h1>
     <ol class="breadcrumb">

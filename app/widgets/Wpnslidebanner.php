@@ -9,7 +9,9 @@ defined('BASEPATH') || exit('No direct script access allowed');
 
 /**
  * Slide banner class.
- * 
+ *
+ * @property Banner $banner
+ * @property CI_Loader $load
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpnslidebanner extends Widget
@@ -30,7 +32,7 @@ class Wpnslidebanner extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return void
      */
     public function main()
     {

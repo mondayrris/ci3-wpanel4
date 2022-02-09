@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
 echo $this->wpanel->load_editor();
 ?>
 

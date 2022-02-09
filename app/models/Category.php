@@ -29,7 +29,8 @@ class Category extends MY_Model
      * @param int $post_id
      * @param string $order
      * @param array $limit
-     * @return mixed
+     * @return CI_DB_result
+     * @noinspection PhpUnusedParameterInspection
      */
     public function get_by_post($post_id = 0, $order = 'asc', $limit = array())
     {
@@ -64,7 +65,7 @@ class Category extends MY_Model
      * Delete categories by category_id field.
      * 
      * @param int $id
-     * @return mixed
+     * @return int
      */
     public function delete_son($id)
     {

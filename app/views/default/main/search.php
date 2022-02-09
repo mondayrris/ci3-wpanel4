@@ -8,9 +8,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed'); 
 
 ?>
-<h1 class="page-header">Resultados da busca por: <?= $search_terms; ?></h1>
+<h1 class="page-header">Resultados da busca por: <?php $search_terms = isset($search_terms) ? $search_terms : '';
+    echo $search_terms; ?></h1>
 <!-- Mostra a lista de resultados. -->
-<?php foreach ($results as $row) { ?>
+<?php $results = isset($results) ? $results : [];
+foreach ($results as $row) { ?>
     <div class="row wpn-postagens">
         <div class="col-md-12">
             <h3 class="page-header"><?= anchor('post/' . $row->link, $row->title); ?></h3>

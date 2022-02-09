@@ -9,7 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Newsletters class
- * 
+ *
+ * @property Newsletter $newsletter
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Newsletters extends Authenticated_admin_controller

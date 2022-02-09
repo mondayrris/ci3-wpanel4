@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+/** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -12,6 +13,8 @@ defined('BASEPATH') || exit('No direct script access allowed');
  *
  * This class add target to the menu items.
  *
+ * @property CI_DB_forge $dbforge
+ * @property CI_DB_query_builder $db
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Migration_Targetmenu extends CI_Migration

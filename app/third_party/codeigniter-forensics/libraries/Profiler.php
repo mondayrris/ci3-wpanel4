@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUndefinedFieldInspection */
+/** @noinspection DuplicatedCode */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -64,6 +67,8 @@ class CI_Profiler extends CI_Loader
 
     public function __construct($config = array())
     {
+        parent::__construct();
+
         $this->CI = & get_instance();
         $this->CI->load->language('profiler');
 
@@ -107,7 +112,7 @@ class CI_Profiler extends CI_Loader
     {
         foreach ($config as $method => $enable) {
             if (in_array($method, $this->_available_sections)) {
-                $this->_compile_[$method] = ($enable !== FALSE) ? TRUE : FALSE;
+                $this->_compile_[$method] = $enable !== FALSE;
             }
         }
     }
@@ -185,7 +190,7 @@ class CI_Profiler extends CI_Loader
         // Load the text helper so we can highlight the SQL
         $this->CI->load->helper('text');
 
-        // Key words we want bolded
+        // Keywords we want bolded
         $highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
 
 
@@ -237,11 +242,13 @@ class CI_Profiler extends CI_Loader
             // Load the text helper so we can highlight the SQL
             $this->CI->load->helper('text');
 
-            // Key words we want bolded
+            // Keywords we want bolded
             $highlight = array('SELECT', 'DISTINCT', 'FROM', 'WHERE', 'AND', 'LEFT&nbsp;JOIN', 'ORDER&nbsp;BY', 'GROUP&nbsp;BY', 'LIMIT', 'INSERT', 'INTO', 'VALUES', 'UPDATE', 'OR&nbsp;', 'HAVING', 'OFFSET', 'NOT&nbsp;IN', 'IN', 'LIKE', 'NOT&nbsp;LIKE', 'COUNT', 'MAX', 'MIN', 'ON', 'AS', 'AVG', 'SUM', '(', ')');
 
 
             $total = 0; // total query time
+
+            // FIXME
             $queries = Illuminate\Database\Capsule\Manager::getQueryLog();
             foreach ($queries as $q) {
                 $time = number_format($q['time'] / 1000, 4);
@@ -288,9 +295,7 @@ class CI_Profiler extends CI_Loader
                 $values[$key] = 'NULL';
         }
 
-        $query = preg_replace($keys, $values, $query, 1, $count);
-
-        return $query;
+        return preg_replace($keys, $values, $query, 1, $count);
     }
 
     // --------------------------------------------------------------------
@@ -378,9 +383,7 @@ class CI_Profiler extends CI_Loader
      */
     protected function _compile_controller_info()
     {
-        $output = $this->CI->router->fetch_class() . "/" . $this->CI->router->fetch_method();
-
-        return $output;
+        return $this->CI->router->fetch_class() . "/" . $this->CI->router->fetch_method();
     }
 
     // --------------------------------------------------------------------
@@ -410,7 +413,7 @@ class CI_Profiler extends CI_Loader
      *
      * Lists HTTP headers
      *
-     * @return	string
+     * @return array
      */
     protected function _compile_http_headers()
     {
@@ -431,7 +434,7 @@ class CI_Profiler extends CI_Loader
      *
      * Lists developer config variables
      *
-     * @return	string
+     * @return array
      */
     protected function _compile_config()
     {
@@ -492,7 +495,7 @@ class CI_Profiler extends CI_Loader
                 foreach ($compiled_userdata as $key => $val) {
                     if (is_numeric($key)) {
                         $output[$key] = "'$val'";
-                    }
+                    } else
 
                     if (is_array($val) || is_object($val)) {
                         $output[$key] = htmlspecialchars(stripslashes(print_r($val, true)));
@@ -511,7 +514,7 @@ class CI_Profiler extends CI_Loader
     /**
      * Compile View Data
      *
-     * Allows any data passed to views to be available in the profiler bar.
+     * Allows any data passed to view to be available in the profiler bar.
      *
      * @return array
      */
@@ -522,7 +525,7 @@ class CI_Profiler extends CI_Loader
         foreach ($this->_ci_cached_vars as $key => $val) {
             if (is_numeric($key)) {
                 $output[$key] = "'$val'";
-            }
+            } else
 
             if (is_array($val) || is_object($val)) {
                 $output[$key] = '<pre>' . htmlspecialchars(stripslashes(print_r($val, true))) . '</pre>';
@@ -557,6 +560,7 @@ class CI_Profiler extends CI_Loader
             }
         }
 
+        $sizestring = isset($sizestring) ? $sizestring : '';
         if ($sizestring == $sizes[0]) {
             $retstring = '%01d %s';
         } // Bytes aren't normally fractional

@@ -7,6 +7,8 @@
 
 defined('BASEPATH') || exit('No direct script access allowed');
 
+require_once __DIR__ . '/RenderException.php';
+
 /**
  * -----------------------------------------------------------------------------
  * Licensed originaly under MIT license by Lonnie Ezell
@@ -27,12 +29,15 @@ defined('BASEPATH') || exit('No direct script access allowed');
  *     - eldarion-ajax (https://github.com/eldarion/eldarion-ajax) for simple AJAX.
  *         Only used by the render_json method to return profiler info and
  *
+ *
+ * @property Auth $auth
+ * @property Wpanel $wpanel
  */
 class MY_Controller extends CI_Controller {
 
     /**
      * The type of caching to use. The default values are
-     * set here so they can be used everywhere, but
+     * set here, so they can be used everywhere, but
      */
     protected $cache_type       = 'dummy';
     protected $backup_cache     = 'file';
@@ -72,6 +77,7 @@ class MY_Controller extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
+        $this->load->helper('ci_instance');
 
         //--------------------------------------------------------------------
         // Cache Setup
@@ -138,6 +144,7 @@ class MY_Controller extends CI_Controller {
         // Development Environment Setup
         //--------------------------------------------------------------------
         //
+        /** @noinspection PhpStatementHasEmptyBodyInspection */
         if (ENVIRONMENT == 'development')
         {
 
@@ -161,13 +168,13 @@ class MY_Controller extends CI_Controller {
 
     /**
      * A Very simple templating system designed not for power or flexibility
-     * but to use the built in features of CodeIgniter's view system to easily
+     * but to use the built-in features of CodeIgniter's view system to easily
      * create fast templating capabilities.
      *
-     * The view is assumed to be under the views folder, under a folder with the
+     * The view is assumed to be under the views' folder, under a folder with the
      * name of the controller and a view matching the name of the method.
      *
-     * The theme is simply a set of files located under the views/ui folder. By default
+     * The theme is simply a set of files located under the views/ui folder. By default,
      * a view named index.php will be used. You can specify different layouts
      * with the scope method, 'layout()'.
      *
@@ -180,9 +187,8 @@ class MY_Controller extends CI_Controller {
      * Within the template the string '{view_content}' will be replaced with the
      * contents of the view file that we're rendering.
      *
-     * @param  [type]  $layout      [description]
-     * @param  boolean $return_data [description]
-     * @return [type]               [description]
+     * @param array $data
+     * @return void
      */
     protected function render($data=array())
     {
@@ -208,6 +214,8 @@ class MY_Controller extends CI_Controller {
         $layout = !empty($this->use_layout) ? $this->use_layout : 'index';
 
         log_message('debug', "3-> " . $this->template . '/theme/'. $layout);
+
+        // FIXME
         $this->load->view(($this->template != null ? $this->template . '/' : '') . 'theme/'. $layout, $data, false, true);
 
         // Reset our custom view attributes.
@@ -332,7 +340,7 @@ class MY_Controller extends CI_Controller {
      *
      * @param  string $message [description]
      * @param  string $type    [description]
-     * @return array
+     * @return array|string
      */
     public function message($message='', $type='info')
     {
@@ -382,14 +390,14 @@ class MY_Controller extends CI_Controller {
 
     /**
      * Renders a string of aribritrary text. This is best used during an AJAX
-     * call or web service request that are expecting something other then
+     * call or web service request that are expecting something other than
      * proper HTML.
      *
-     * @param  string $text The text to render.
-     * @param  bool $typography If TRUE, will run the text through 'Auto_typography'
+     * @param string $text The text to render.
+     * @param bool $typography If TRUE, will run the text through 'Auto_typography'
      *                          before outputting to the browser.
      *
-     * @return [type]       [description]
+     * @return void
      */
     public function render_text($text, $typography=false)
     {
@@ -416,8 +424,9 @@ class MY_Controller extends CI_Controller {
      *
      * Do NOT do any further actions after calling this action.
      *
-     * @param  mixed $json  The data to be converted to JSON.
-     * @return [type]       [description]
+     * @param mixed $json The data to be converted to JSON.
+     * @return void
+     * @throws RenderException
      */
     public function render_json($json)
     {
@@ -426,7 +435,7 @@ class MY_Controller extends CI_Controller {
             throw new RenderException('Resources can not be converted to JSON data.');
         }
 
-        // If there is a fragments array and we've enabled profiling,
+        // If there is a fragments array, and we've enabled profiling,
         // then we need to add the profile results to the fragments
         // array so it will be updated on the site, since we disable
         // all profiling below to keep the results clean.
@@ -460,11 +469,12 @@ class MY_Controller extends CI_Controller {
     /**
      * Sends the supplied string to the browser with a MIME type of text/javascript.
      *
-     * Do NOT do any further processing after this command or you may receive a
+     * Do NOT do any further processing after this command, or you may receive a
      * Headers already sent error.
      *
-     * @param  mixed $js    The javascript to output.
-     * @return [type]       [description]
+     * @param mixed $js The javascript to output.
+     * @return void [type]       [description]
+     * @throws RenderException
      */
     public function render_js($js=null)
     {
@@ -483,7 +493,7 @@ class MY_Controller extends CI_Controller {
     /**
      * Breaks us out of any output buffering so that any content echo'd out
      * will echo out as it happens, instead of waiting for the end of all
-     * content to echo out. This is especially handy for long running
+     * content to echo out. This is especially handy for long-running
      * scripts like might be involved in cron scripts.
      *
      * @return void
@@ -492,9 +502,9 @@ class MY_Controller extends CI_Controller {
     {
         if (ob_get_level() > 0)
         {
-            end_end_flush();
+            ob_end_flush();
         }
-        ob_implicit_flush(true);
+        ob_implicit_flush();
     }
 
     //--------------------------------------------------------------------
@@ -506,7 +516,9 @@ class MY_Controller extends CI_Controller {
      * If the URL is a relative URL, it will be converted to a full URL for this site
      * using site_url().
      *
-     * @param  string $location [description]
+     * @param string $location [description]
+     * @throws RenderException
+     * @throws RenderException
      */
     public function ajax_redirect($location='')
     {
@@ -532,14 +544,14 @@ class MY_Controller extends CI_Controller {
      * as JSON data. This is useful when your javascript is sending JSON data
      * to the application.
      *
-     * @param  strign $format   The type of element to return, either 'object' or 'array'
+     * @param  string $format   The type of element to return, either 'object' or 'array'
      * @param  int   $depth     The number of levels deep to decode
      *
      * @return mixed    The formatted JSON data, or NULL.
      */
     public function get_json($format='object', $depth=512)
     {
-        $as_array   = $format == 'array' ? true : false;
+        $as_array   = $format == 'array';
 
         return json_decode( file_get_contents('php://input'), $as_array, $depth);
     }
@@ -606,10 +618,13 @@ class Authenticated_Controller extends MY_Controller {
 
 }
 
-/*
-    ADMIN AUTHENTICATED CONTROLLER
-
-    Simply makes sure that someone is logged in and ready to roll.
+/**
+ * ADMIN AUTHENTICATED CONTROLLER
+ *
+ * Simply makes sure that someone is logged in and ready to roll.
+ *
+ * @property Post $post
+ * @property Wpanel $wpanel
  */
 class Authenticated_admin_controller extends MY_Controller
 {
@@ -629,7 +644,9 @@ class Authenticated_admin_controller extends MY_Controller
 
         if ($this->auth->is_logged() == TRUE) {
             if (!$this->auth->is_root()) {
-                if ($this->auth->is_user() or $this->auth->is_company()) {
+                // FIXME
+                // if ($this->auth->is_user() or $this->auth->is_company()) {
+                if ($this->auth->is_user()) {
                     $this->set_message('Esta área é destinada somente a usuários administradores.', 'danger', '');
                 }
                 $this->auth->check_permission();
@@ -644,4 +661,80 @@ class Authenticated_admin_controller extends MY_Controller
 
     }
 
+    /**
+     * @param $page_index
+     * @return array
+     */
+    protected function get_post_query_result($page_index)
+    {
+        $this->load->library('table');
+        $this->load->model('post');
+        // Template da tabela
+        $this->table->set_template(array('table_open' => '<table id="grid" class="table table-condensed table-striped">'));
+        $this->table->set_heading(
+            '#', wpn_lang('field_title'), wpn_lang('field_created_on'), wpn_lang('field_status'), wpn_lang('wpn_actions')
+        );
+
+        // Paginação
+        // -------------------------------------------------------------------
+        $limit = 10;
+        $uri_segment = 5;
+        $offset = $this->uri->segment($uri_segment);
+        $total_rows = $this->post->count_by(array('page' => $page_index, 'deleted' => '0'));
+        $config = array();
+        $config['base_url'] = site_url('admin/posts/index/pag');
+        $config['total_rows'] = $total_rows;
+        $config['per_page'] = $limit;
+        $this->pagination->initialize($config);
+        // -------------------------------------------------------------------
+        // Fim - Paginação
+
+        $query = $this->post
+            ->limit($limit, $offset)
+            ->order_by('created_on', 'desc')
+            ->where('page', $page_index)
+            ->select('id, title, created_on, status')
+            ->find_all();
+
+        return [$query, $total_rows];
+    }
+
+    protected function get_add_post_result($page_index)
+    {
+        $this->load->model('post');
+        $this->load->model('wpanel');
+
+        $data = array();
+        $data['title'] = $this->input->post('title');
+        $data['description'] = $this->input->post('description');
+        $data['link'] = strtolower(url_title(convert_accented_characters($this->input->post('title')))) . '-' . time();
+        $data['content'] = $this->input->post('content');
+        $data['tags'] = $this->input->post('tags');
+        $data['status'] = $this->input->post('status');
+        $data['image'] = $this->wpanel->upload_media('capas');
+        // Identifica se é uma página ou uma postagem
+        // 0=post, 1=Página
+        $data['page'] = strval($page_index);
+        return $this->post->insert($data);
+    }
+
+    protected function get_update_post_result($id, $page_index) {
+        $data = array();
+        $data['title'] = $this->input->post('title');
+        $data['description'] = $this->input->post('description');
+        $data['link'] = strtolower(url_title(convert_accented_characters($this->input->post('title'))));
+        $data['content'] = $this->input->post('content');
+        $data['tags'] = $this->input->post('tags');
+        $data['status'] = $this->input->post('status');
+        // Identifica se é uma página ou uma postagem
+        // 0=post, 1=Página
+        $data['page'] = strval($page_index);
+        if ($this->input->post('alterar_imagem') == '1')
+        {
+            $postagem = $this->post->find($id);
+            $this->wpanel->remove_media('capas/' . $postagem->image);
+            $data['image'] = $this->wpanel->upload_media('capas');
+        }
+        return $this->post->update($id, $data);
+    }
 }

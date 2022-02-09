@@ -18,7 +18,7 @@ class Wpnaddthisbuttons extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return void
      */
     public function main()
     {

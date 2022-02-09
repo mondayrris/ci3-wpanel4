@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection DuplicatedCode */
 
 $lang['date_year']      = "Ano";
 $lang['date_years']     = "Anos";

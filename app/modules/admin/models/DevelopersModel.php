@@ -17,7 +17,7 @@ class DevelopersModel extends CI_Model {
     /**
      * Retorna o número da versão.
      * 
-     * @return bigint
+     * @return int
      */
     public function get_migration_version()
     {

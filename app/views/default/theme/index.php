@@ -1,4 +1,4 @@
-<?php 
+<?php /** @noinspection PhpUndefinedVariableInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -17,4 +17,3 @@ echo $view_content;
 
 $this->load->view('default/theme/footer');
 
-?>

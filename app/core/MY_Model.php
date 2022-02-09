@@ -1,4 +1,4 @@
-<?php 
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -46,7 +46,7 @@ class MY_Model extends CI_Model {
     protected   $primary_key    = 'id';
 
     /**
-     * Field name to use to the created time column in the DB table.
+     * Field names to use to the created time column in the DB table.
      *
      * @var string
      * @access protected
@@ -54,7 +54,7 @@ class MY_Model extends CI_Model {
     protected $created_field = 'created_on';
 
     /**
-     * Field name to use to the modified time column in the DB table.
+     * Field names to use to the modified time column in the DB table.
      *
      * @var string
      * @access protected
@@ -62,7 +62,7 @@ class MY_Model extends CI_Model {
     protected $modified_field = 'modified_on';
 
     /**
-     * Whether or not to auto-fill a 'created_on' field on inserts.
+     * Whether to autofill a 'created_on' field on inserts.
      *
      * @var boolean
      * @access protected
@@ -70,7 +70,7 @@ class MY_Model extends CI_Model {
     protected $set_created  = TRUE;
 
     /**
-     * Whether or not to auto-fill a 'modified_on' field on updates.
+     * Whether to autofill a 'modified_on' field on updates.
      *
      * @var boolean
      * @access protected
@@ -88,7 +88,7 @@ class MY_Model extends CI_Model {
 
     /*
         Var: $created_by_field
-        Field name to use to the created by column in the DB table.
+        Field names to use to the created by column in the DB table.
 
         Access:
             Protected
@@ -97,7 +97,7 @@ class MY_Model extends CI_Model {
 
     /*
         Var: $modified_by_field
-        Field name to use to the modified by column in the DB table.
+        Field names to use to the modified by column in the DB table.
 
         Access:
             Protected
@@ -106,7 +106,7 @@ class MY_Model extends CI_Model {
 
     /*
         Var: $deleted_by_field
-        Field name to use for the deleted by column in the DB table.
+        Field names to use for the deleted by column in the DB table.
 
         Access:
             Protected
@@ -131,7 +131,7 @@ class MY_Model extends CI_Model {
 
     /**
      * Various callbacks available to the class. They are simple lists of
-     * method names (methods will be ran on $this).
+     * method names (methods will be run on $this).
      */
     protected $before_insert  = array();
     protected $after_insert     = array();
@@ -191,7 +191,7 @@ class MY_Model extends CI_Model {
 
     /*
         If TRUE, inserts will return the last_insert_id. However,
-        this can potentially slow down large imports drastically
+        this can potentially slow down large imports drastically,
         so you can turn it off with the return_insert_id(false) method.
         This will simply return TRUE, instead.
 
@@ -218,11 +218,13 @@ class MY_Model extends CI_Model {
      * You can provide your own connections for read and/or write databases
      * by passing them in the constructor.
      *
-     * @param DB object $write_db A CI_DB connection.
-     * @param DB object $read_db A CI_DB connection.
+     * @param object $write_db A CI_DB connection.
+     * @param object $read_db A CI_DB connection.
      */
-    public function __construct(&$write_db=null, &$read_db=null)
+    public function __construct($write_db=null, $read_db=null)
     {
+        parent::__construct();
+
         // Always protect our attributes
         array_unshift($this->before_insert, 'protect_attributes');
         array_unshift($this->before_update, 'protect_attributes');
@@ -240,12 +242,12 @@ class MY_Model extends CI_Model {
          */
         if (is_object($write_db))
         {
-            $this->dbw = $write_db;
+            $this->dbw = clone($write_db);
         }
 
         if (is_object($read_db))
         {
-            $this->dbr = $read_db;
+            $this->dbr = clone($read_db);
         }
 
         /*
@@ -266,7 +268,7 @@ class MY_Model extends CI_Model {
             $this->dbw = $this->db;
         }
 
-        // If there's no read db, use the write db.
+        // If there's no read db, write db.
         if ( ! is_object($this->dbr))
         {
             $this->dbr = $this->dbw;
@@ -316,20 +318,7 @@ class MY_Model extends CI_Model {
         }
 
         $this->dbr->where($this->primary_key, $id);
-        $row = $this->dbr->get($this->table_name);
-        $row = $row->{$this->_return_type()}();
-
-        $row = $this->trigger('after_find', $row);
-
-        if ($this->temp_return_type == 'json')
-        {
-            $row = json_encode($row);
-        }
-
-        // Reset our return type
-        $this->temp_return_type = $this->return_type;
-
-        return $row;
+        return $this->_find_row();
     }
 
     //--------------------------------------------------------------------
@@ -354,20 +343,7 @@ class MY_Model extends CI_Model {
 
         $this->trigger('before_find');
 
-        $row = $this->dbr->get($this->table_name);
-        $row = $row->{$this->_return_type()}();
-
-        $row = $this->trigger('after_find', $row);
-
-        if ($this->temp_return_type == 'json')
-        {
-            $row = json_encode($row);
-        }
-
-        // Reset our return type
-        $this->temp_return_type = $this->return_type;
-
-        return $row;
+        return $this->_find_row();
     }
 
     //--------------------------------------------------------------------
@@ -405,7 +381,7 @@ class MY_Model extends CI_Model {
     //--------------------------------------------------------------------
 
     /**
-     * Fetch all of the records in the table. Can be used with scoped calls
+     * Fetch all the records in the table. Can be used with scoped calls
      * to restrict the results.
      *
      * @return object or FALSE
@@ -425,9 +401,13 @@ class MY_Model extends CI_Model {
 
         if (is_array($rows))
         {
-            foreach ($rows as $key => &$row)
+            // FIXME
+            // foreach ($rows as $key => &$row)
+            foreach ($rows as &$row)
             {
-                $row = $this->trigger('after_find', $row, ($key == count($rows) - 1));
+                // FIXME
+                // $row = $this->trigger('after_find', $row, ($key == count($rows) - 1));
+                $row = $this->trigger('after_find', $row);
             }
         }
 
@@ -459,7 +439,7 @@ class MY_Model extends CI_Model {
         {
             $data = $this->validate($data, 'insert');
 
-            // If $data is false, we didn't validate
+            // If $data is false, we didn't validate,
             // so we need to get out of here.
             if ( ! $data)
             {
@@ -474,7 +454,7 @@ class MY_Model extends CI_Model {
 
         if($this->log_user)
         {
-            $data[$this->created_by_field] = $this->auth->user_id();
+            $data[$this->created_by_field] = get_CI_instance()->auth->user_id();
         }
 
         $this->dbw->insert($this->table_name, $data);
@@ -557,7 +537,7 @@ class MY_Model extends CI_Model {
 
         if ($this->log_user)
         {
-            $data[$this->modified_by_field] = $this->auth->user_id();
+            $data[$this->modified_by_field] = get_CI_instance()->auth->user_id();
         }
 
         $this->dbw->set($data);
@@ -603,7 +583,8 @@ class MY_Model extends CI_Model {
 
         $result = $this->dbw->update_batch($this->table_name, $data, $where_key);
 
-        foreach ($data as &$row)
+        unset($row);
+        foreach ($data as $row)
         {
             $this->trigger('after_update', array($row, $result));
         }
@@ -668,8 +649,9 @@ class MY_Model extends CI_Model {
      * $this->update_by($wheres, $data);
      * $this->update_by('user_id', 15, $data);
      *
-     * @param array $data An array of data pairs to update
-     * @param one or more WHERE-acceptable entries.
+     * array $data An array of data pairs to update
+     * one or more WHERE-acceptable entries.
+     *
      * @return bool
      */
     public function update_by()
@@ -678,23 +660,7 @@ class MY_Model extends CI_Model {
         $data = array_pop($args);
         $this->_set_where($args, 'dbw');
 
-        $data = $this->trigger('before_update', $data);
-
-        if ($this->skip_validation === FALSE)
-        {
-            $data = $this->validate($data);
-            if ( ! $data)
-            {
-                return FALSE;
-            }
-        }
-
-        $this->dbw->set($data);
-        $result = $this->dbw->update($this->table_name);
-
-        $this->trigger('after_update', array($data, $result));
-
-        return $result;
+        return $this->_update($data);
     }
 
     //--------------------------------------------------------------------
@@ -707,29 +673,13 @@ class MY_Model extends CI_Model {
      */
     public function update_all($data)
     {
-        $data = $this->trigger('before_update', $data);
-
-        if ($skip_validation === FALSE)
-        {
-            $data = $this->validate($data);
-            if ( ! $data)
-            {
-                return FALSE;
-            }
-        }
-
-        $this->dbw->set($data);
-        $result = $this->dbw->update($this->table_name);
-
-        $this->trigger('after_update', array($data, $result));
-
-        return $result;
+        return $this->_update($data);
     }
 
     //--------------------------------------------------------------------
 
     /**
-     * Deletes a row by it's primary key value.
+     * Deletes a row by its primary key value.
      *
      * @param  mixed $id The primary key value of the row to delete.
      * @return bool
@@ -740,21 +690,7 @@ class MY_Model extends CI_Model {
 
          $this->dbw->where($this->primary_key, $id);
 
-        if ($this->soft_deletes)
-        {
-            $sets = $this->log_user ? array($this->soft_delete_key => 1, $this->deleted_by_field => $this->auth->user_id()) : array($this->soft_delete_key => 1);
-
-            $result = $this->dbw->update($this->table_name, $sets);
-        }
-
-        // Hard Delete
-        else {
-            $result = $this->dbw->delete($this->table_name);
-        }
-
-        $this->trigger('after_delete', $result);
-
-        return $result;
+        return $this->_delete();
     }
 
     //--------------------------------------------------------------------
@@ -764,22 +700,9 @@ class MY_Model extends CI_Model {
         $where = func_get_args();
         $this->_set_where($where, 'dbw');
 
-        $where = $this->trigger('before_delete', $where);
+        $this->trigger('before_delete', $where);
 
-        if ($this->soft_deletes)
-        {
-            $sets = $this->log_user ? array($this->soft_delete_key => 1, $this->deleted_by_field => $this->auth->user_id()) : array($this->soft_delete_key => 1);
-
-            $result = $this->dbw->update($this->table_name, $sets);
-        }
-        else
-        {
-            $result = $this->dbw->delete($this->table_name);
-        }
-
-        $this->trigger('after_delete', $result);
-
-        return $result;
+        return $this->_delete();
     }
 
     //--------------------------------------------------------------------
@@ -798,20 +721,7 @@ class MY_Model extends CI_Model {
 
         $this->dbw->where_in($ids);
 
-        if ($this->soft_deletes)
-        {
-            $sets = $this->log_user ? array($this->soft_delete_key => 1, $this->deleted_by_field => $this->auth->user_id()) : array($this->soft_delete_key => 1);
-
-            $result = $this->dbw->update($this->table_name, $sets);
-        }
-        else
-        {
-            $result = $this->dbw->delete($this->table_name);
-        }
-
-        $this->trigger('after_delete', $result);
-
-        return $result;
+        return $this->_delete();
     }
 
     //--------------------------------------------------------------------
@@ -820,7 +730,7 @@ class MY_Model extends CI_Model {
      * Empty a table.
      *
      * @param $table String Table name.
-     * @return mixed
+     * @return bool
      */
     public function empty_table($table = NULL)
     {
@@ -1119,14 +1029,14 @@ class MY_Model extends CI_Model {
     //--------------------------------------------------------------------
 
     /**
-     * Triggers a model-specific event and call each of it's observers.
+     * Triggers a model-specific event and call each of its observers.
      *
      * @param string    $event  The name of the event to trigger
      * @param mixed     $data   The data to be passed to the callback functions.
      *
      * @return mixed
      */
-    public function trigger($event, $data=false)
+    public function trigger($event, $data = FALSE)
     {
         if (!isset($this->$event) || !is_array($this->$event))
         {
@@ -1135,9 +1045,9 @@ class MY_Model extends CI_Model {
 
         foreach ($this->$event as $method)
         {
-            if (strpos($method, '('))
+            if (strpos($method, '(') !== FALSE)
             {
-                preg_match('/([a-zA-Z0-9\_\-]+)(\(([a-zA-Z0-9\_\-\., ]+)\))?/', $method, $matches);
+                preg_match('/([a-zA-Z0-9_\-]+)(\(([a-zA-Z0-9_\-., ]+)\))?/', $method, $matches);
                 $this->callback_parameters = explode(',', $matches[3]);
             }
 
@@ -1273,7 +1183,7 @@ class MY_Model extends CI_Model {
      * @param  array $data      An array of validation rules
      * @param string $type      Either 'insert' or 'update'
      *
-     * @return array/bool       The original data or FALSE
+     * @return array|false
      */
     public function validate($data, $type='update') // x
     {
@@ -1387,8 +1297,9 @@ class MY_Model extends CI_Model {
      * @access protected
      *
      * @return int|null|string The current/user time converted to the proper format.
+     * @noinspection PhpUnusedParameterInspection
      */
-    protected function set_date($user_date=NULL)
+    protected function set_date($user_date = NULL)
     {
         // $curr_date = !empty($user_date) ? $user_date : now();//time();
         //if(!$user_date == null)
@@ -1398,13 +1309,12 @@ class MY_Model extends CI_Model {
         {
             case 'int':
                 return time();//$curr_date;
-                break;
             case 'datetime':
                 return date('Y-m-d H:i:s');//, $curr_date);
-                break;
             case 'date':
                 return date( 'Y-m-d');//, $curr_date);
-                break;
+            default:
+                return NULL;
         }
 
     }//end set_date()
@@ -1415,6 +1325,7 @@ class MY_Model extends CI_Model {
      * Allows you to retrieve error messages from the database
      *
      * @return string
+     * @noinspection PhpComposerExtensionStubsInspection
      */
     public function get_db_error_message($db_type)
     {
@@ -1425,6 +1336,7 @@ class MY_Model extends CI_Model {
             case 'mssql':
                 return mssql_get_last_message();
             case 'mysql':
+                /** @noinspection PhpDeprecationInspection */
                 return mysql_error($this->{$db_type}->conn_id);
             case 'mysqli':
                 return mysqli_error($this->{$db_type}->conn_id);
@@ -1442,7 +1354,8 @@ class MY_Model extends CI_Model {
             case 'sqlite':
                 return sqlite_error_string(sqlite_last_error($this->{$db_type}->conn_id));
             case 'sqlsrv':
-                $error = array_shift(sqlsrv_errors());
+                $array = sqlsrv_errors();
+                $error = array_shift($array);
                 return !empty($error['message']) ? $error['message'] : null;
             default:
                 /*
@@ -1494,5 +1407,88 @@ class MY_Model extends CI_Model {
     public function offset($offset) { $this->dbr->offset($offset); return $this; }
     public function set($key, $value = '', $escape = TRUE) { $this->dbw->set($key, $value, $escape); return $this; }
     public function count_all_results() { $this->dbr->count_all_results($this->table_name); return $this; }
+
+    /**
+     * Validate a permission user by url.
+     *
+     * @param int $account_id
+     * @param string $url
+     * @return boolean
+     */
+    protected function validate_permission($account_id, $url)
+    {
+        $this->db->select('permissions.*');
+        $this->db->from('permissions');
+        $this->db->join('modules_actions', 'modules_actions.id = permissions.module_action_id');
+        $this->db->where('modules_actions.link', $url);
+        $this->db->where('permissions.account_id', $account_id);
+        $this->db->where('modules_actions.whitelist', 0);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * @return false|mixed|string
+     */
+    private function _find_row()
+    {
+        $row = $this->dbr->get($this->table_name);
+        $row = $row->{$this->_return_type()}();
+
+        $row = $this->trigger('after_find', $row);
+
+        if ($this->temp_return_type == 'json') {
+            $row = json_encode($row);
+        }
+
+        // Reset our return type
+        $this->temp_return_type = $this->return_type;
+
+        return $row;
+    }
+
+    /**
+     * @param $data
+     * @return bool
+     */
+    private function _update($data)
+    {
+        $data = $this->trigger('before_update', $data);
+
+        if ($this->skip_validation === FALSE) {
+            $data = $this->validate($data);
+            if (!$data) {
+                return FALSE;
+            }
+        }
+
+        $this->dbw->set($data);
+        $result = $this->dbw->update($this->table_name);
+
+        $this->trigger('after_update', array($data, $result));
+
+        return $result;
+    }
+
+    /**
+     * @return bool|mixed|string
+     */
+    private function _delete()
+    {
+        if ($this->soft_deletes) {
+            $sets = $this->log_user ? array($this->soft_delete_key => 1, $this->deleted_by_field => get_CI_instance()->auth->user_id()) : array($this->soft_delete_key => 1);
+
+            $result = $this->dbw->update($this->table_name, $sets);
+        } else {
+            $result = $this->dbw->delete($this->table_name);
+        }
+
+        $this->trigger('after_delete', $result);
+
+        return $result;
+    }
 
 }

@@ -7,6 +7,10 @@
 
 defined('BASEPATH') || exit('No direct script access allowed');
 
+/**
+ * @property Banner $banner
+ * @property CI_Loader $load
+ */
 class Wpnsidebarmenu extends Widget
 {
 

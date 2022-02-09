@@ -17,15 +17,14 @@ if (!function_exists('html_comment'))
 {
 
     /**
-     * Return an html comment tag.
+     * Return a html comment tag.
      * @param string $comment Comment text.
      * @return string
      */
     function html_comment($comment)
     {
         $str = "";
-        $str = "<!-- " . $comment . " -->\n";
-        return $str;
+        return "<!-- " . $comment . " -->\n";
     }
 
 }
@@ -41,8 +40,7 @@ if (!function_exists('title'))
     function title($title)
     {
         $str = "";
-        $str = "<title>" . $title . "</title>\n";
-        return $str;
+        return "<title>" . $title . "</title>\n";
     }
 
 }
@@ -51,7 +49,7 @@ if (!function_exists('html'))
 {
 
     /**
-     * Return an html open or close tag.
+     * Return a html open or close tag.
      * 
      * @param boolean $close
      * @return string
@@ -72,7 +70,7 @@ if (!function_exists('head'))
 {
 
     /**
-     * Return an head openn or close tag.
+     * Return a head openn or close tag.
      * 
      * @param boolean $close
      * @return string
@@ -93,7 +91,7 @@ if (!function_exists('body'))
 {
 
     /**
-     * Return an body open or close tag.
+     * Return a body open or close tag.
      * 
      * @param mixed $attributes
      * @param boolean $close
@@ -115,7 +113,7 @@ if (!function_exists('div'))
 {
 
     /**
-     * Return an div open or close tag.
+     * Return a div open or close tag.
      * 
      * @param mixed $attributes
      * @param boolean $close

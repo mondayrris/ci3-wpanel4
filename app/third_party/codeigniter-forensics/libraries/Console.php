@@ -29,7 +29,7 @@ class Console
 {
     /*
       Var: $logs
-      Contains all of the logs that are collected.
+      Contains all the logs that are collected.
      */
 
     private static $logs = array(
@@ -132,7 +132,7 @@ class Console
     /*
       Method: get_logs()
 
-      Returns the logs array for use in external classes. (Namely the
+      Returns the logs array for use in external classes. Namely the
       Forensics Profiler.
      */
     public static function get_logs()

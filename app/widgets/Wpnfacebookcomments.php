@@ -35,13 +35,11 @@ class Wpnfacebookcomments extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
-        $html = "";
-        $html .= "<div class=\"fb-comments\" data-href=\"" . $this->link . "\" data-num-posts=\"15\" data-width=\"100%\"></div>";
-        return $html;
+        return "<div class=\"fb-comments\" data-href=\"" . $this->link . "\" data-num-posts=\"15\" data-width=\"100%\"></div>";
     }
 
 }

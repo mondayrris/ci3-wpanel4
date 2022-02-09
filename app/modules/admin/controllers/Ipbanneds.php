@@ -12,6 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * gerada automaticamente pela ferramenta Wpanel-GEN para a criação
  * de códigos padrão para o Wpanel CMS.
  *
+ * @property Ipban $ipban
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Ipbanneds extends Authenticated_admin_controller

@@ -1,3 +1,7 @@
+<?php
+$email = isset($email) ? $email : '';
+$token = isset($token) ? $token : '';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,7 +9,7 @@
         <title>Ativação de cadastro | <?= wpn_config('site_titulo'); ?></title>
         <style>
             body {
-                font-family: verdana;
+                font-family: verdana, serif;
                 margin: 30px;
                 background-color: #cccccc;
             }

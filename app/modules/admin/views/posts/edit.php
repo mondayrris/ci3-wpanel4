@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
 echo $this->wpanel->load_editor();
 ?>
 <section class="content-header">

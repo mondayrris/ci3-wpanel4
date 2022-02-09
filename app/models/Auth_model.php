@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -160,22 +160,6 @@ class Auth_model extends CI_Model
             return FALSE;
     }
 
-    // Exemplo retirado do projeto ACL no Github.
-    public function validate_permission($account_id, $url)
-    {
-        $this->db->select('permissions.*');
-        $this->db->from('permissions');
-        $this->db->join('modules_actions', 'modules_actions.id = permissions.module_action_id');
-        $this->db->where('modules_actions.link', $url);
-        $this->db->where('permissions.account_id', $account_id);
-        $this->db->where('modules_actions.whitelist', 0);
-        $query = $this->db->get();
-        if ($query->num_rows() > 0)
-            return true;
-        else
-            return false;
-    }
-
     // Valida a lista branca - retirado do projeto ACL no Github.
     public function validate_white_list($url)
     {
@@ -240,9 +224,9 @@ class Auth_model extends CI_Model
         {
             $this->db->set('ip_address', $ip_address);
             $this->db->set('created', date('Y-m-d H:i:s'));
-            return $this->db->insert('ip_banned');
-        } else
-            return FALSE;
+            $this->db->insert('ip_banned');
+        } else {
+        }
     }
 
     // Verifica se já atingiu o total permitido de tentativas.
@@ -263,7 +247,7 @@ class Auth_model extends CI_Model
     {
         $this->db->where('ip_address', $ip_address);
         $this->db->delete('ip_attempts');
-        return $this->db->affected_rows();
+        $this->db->affected_rows();
     }
 
     // Verifica se o IP está na lista de IP's banidos.

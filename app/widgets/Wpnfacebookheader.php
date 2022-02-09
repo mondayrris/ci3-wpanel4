@@ -18,12 +18,11 @@ class Wpnfacebookheader extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
-        $html = "";
-        $html .= "<div id=\"fb-root\"></div>\n";
+        $html = "<div id=\"fb-root\"></div>\n";
         $html .= "<script>\n";
         $html .= "(function(d, s, id) {\n";
         $html .= "\tvar js, fjs = d.getElementsByTagName(s)[0];\n";

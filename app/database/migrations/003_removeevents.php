@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+/** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -12,6 +13,7 @@ defined('BASEPATH') || exit('No direct script access allowed');
  *
  * This class remove events from modules.
  *
+ * @property CI_DB_query_builder $db
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Migration_Removeevents extends CI_Migration
@@ -83,34 +85,33 @@ class Migration_Removeevents extends CI_Migration
 
     /**
      * Get module id.
-     * @param string $module_name
      * @return int
      */
-    private function getModuleId($module_name)
+    private function getModuleId()
     {
-        $this->db->where('name_id', $module_name);
+        $this->db->where('name_id', 'eventos');
         $module = $this->db->get('modules')->row();
         return $module->id;
     }
 
     /**
      * Delete module data.
-     * @return int
+     * @return void
      */
     private function deleteModule()
     {
-        $this->db->where('id', $this->getModuleId('eventos'));
-        return $this->db->delete('modules');
+        $this->db->where('id', $this->getModuleId());
+        $this->db->delete('modules');
     }
 
     /**
      * Delete module actions
-     * @return int
+     * @return void
      */
     private function deleteModuleActions()
     {
-        $this->db->where('module_id', $this->getModuleId('eventos'));
-        return $this->db->delete('modules_actions');
+        $this->db->where('module_id', $this->getModuleId());
+        $this->db->delete('modules_actions');
     }
 
 }

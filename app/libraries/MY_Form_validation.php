@@ -18,6 +18,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * 
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  *
+ * @property MY_Controller $CI
  */
 class MY_Form_validation extends CI_Form_validation
 {
@@ -60,12 +61,12 @@ class MY_Form_validation extends CI_Form_validation
     /**
      * Executes the Captha library of Codeigniter.
      * 
-     * @return mixed
+     * @return void|string
      */
     function get_captcha()
     {
         $vals = array(
-            'word' => $this->gen_rand_shortcode(6),
+            'word' => $this->gen_rand_shortcode(),
             'img_path' => FCPATH . 'captcha/',
             'img_url' => base_url('captcha') . '/',
             'font_path' => FCPATH . 'lib/fonts/essai.ttf',
@@ -96,15 +97,14 @@ class MY_Form_validation extends CI_Form_validation
     }
 
     /**
-     * Return an random code to be set into the captcha image.
-     * 
-     * @param int $length
-     * @return mixed
+     * Return a random code to be set into the captcha image.
+     *
+     * @return string
      */
-    private function gen_rand_shortcode($length)
+    private function gen_rand_shortcode()
     {
         $randstr = "";
-        for ($i = 0; $i < $length; $i++)
+        for ($i = 0; $i < 6; $i++)
         {
             $randnum = mt_rand(0, 61);
             if ($randnum < 10)
@@ -126,6 +126,7 @@ class MY_Form_validation extends CI_Form_validation
      * 
      * @param	string
      * @return	bool
+     * @noinspection PhpUnused
      */
     function valid_cpf($cpf)
     {

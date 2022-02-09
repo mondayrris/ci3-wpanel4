@@ -10,7 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 <div class="row">
     <div class="col-md-12">
-        <h1 class="page-header"><?= $video->titulo; ?></h1>
+        <h1 class="page-header"><?php $video = isset($video) ? $video : new stdClass();
+            echo $video->titulo; ?></h1>
     </div>
 </div>
 <div class="row wpn-social-buttons">

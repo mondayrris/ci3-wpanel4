@@ -18,13 +18,12 @@ class Wpnganalytics extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
 
-        $html = "";
-        $html .= "\t<!-- Google Analytics -->\n";
+        $html = "\t<!-- Google Analytics -->\n";
         $html .= "\t<script>\n";
         $html .= "\t(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){\n";
         $html .= "\t(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),\n";

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -9,7 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Accounts class.
- * 
+ *
+ * @property Module_action $module_action
+ * @property Wpanel $wpanel
+ * @property Account $account
+ * @property Logaccess $logaccess
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Accounts extends Authenticated_admin_controller
@@ -76,6 +80,7 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Access log page.
+     * @noinspection PhpUnusedParameterInspection
      */
     public function access($account_id = NULL)
     {
@@ -118,6 +123,7 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Add new account.
+     * @throws Exception
      */
     public function add()
     {
@@ -150,8 +156,9 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Edit an account.
-     * 
+     *
      * @param int $id
+     * @throws Exception
      */
     public function edit($id = null)
     {
@@ -212,7 +219,7 @@ class Accounts extends Authenticated_admin_controller
     }
 
     /**
-     * Change an profile password.
+     * Change a profile password.
      */
     public function changeprofilepassword()
     {
@@ -242,6 +249,7 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Edit an account profile.
+     * @throws Exception
      */
     public function profile()
     {
@@ -286,8 +294,9 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Activate an account.
-     * 
+     *
      * @param int $account_id
+     * @throws Exception
      */
     public function activate($account_id = NULL)
     {
@@ -299,8 +308,9 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Deactivate an account.
-     * 
+     *
      * @param int $account_id
+     * @throws Exception
      */
     public function deactivate($account_id = NULL)
     {
@@ -311,9 +321,9 @@ class Accounts extends Authenticated_admin_controller
     }
 
     /**
-     * Return an modules list for permission settings.
+     * Return a modules list for permission settings.
      * 
-     * @return mixed
+     * @return array|object
      */
     private function list_modules_full()
     {

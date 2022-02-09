@@ -1,3 +1,4 @@
+<?php /** @noinspection PhpUndefinedVariableInspection */?>
 <!DOCTYPE html>
 <html>
     <head>

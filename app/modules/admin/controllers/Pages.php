@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -9,11 +9,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Page class.
- * 
+ *
+ * @property Post $post
+ * @property Wpanel $wpanel
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Pages extends Authenticated_admin_controller
 {
+    const PAGE_INDEX = 1;
 
     /**
      * Class constructor.
@@ -30,32 +33,7 @@ class Pages extends Authenticated_admin_controller
      */
     public function index()
     {
-        $this->load->library('table');
-        // Template da tabela
-        $this->table->set_template(array('table_open' => '<table id="grid" class="table table-condensed table-striped">'));
-        $this->table->set_heading(
-            '#', wpn_lang('field_title'), wpn_lang('field_created_on'), wpn_lang('field_status'), wpn_lang('wpn_actions')
-        );
-        
-        // Paginação
-        // -------------------------------------------------------------------
-        $limit = 10;
-        $uri_segment = 5;
-        $offset = $this->uri->segment($uri_segment);
-        $total_rows = $this->post->count_by(array('page' => 1, 'deleted' => '0'));
-        $config = array();
-        $config['base_url'] = site_url('admin/pages/index/pag');
-        $config['total_rows'] = $total_rows;
-        $config['per_page'] = $limit;
-        $this->pagination->initialize($config);
-        // -------------------------------------------------------------------
-        // Fim - Paginação
-        
-        $query = $this->post->limit($limit, $offset)
-                            ->order_by('created_on', 'desc')
-                            ->where('page', 1)
-                            ->select('id, title, created_on, status')
-                            ->find_all();
+        list($query, $total_rows) = parent::get_post_query_result(self::PAGE_INDEX);
         
         foreach ($query as $row)
         {
@@ -86,18 +64,8 @@ class Pages extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['description'] = $this->input->post('description');
-            $data['link'] = strtolower(url_title(convert_accented_characters($this->input->post('title')))) . '-' . time();
-            $data['content'] = $this->input->post('content');
-            $data['tags'] = $this->input->post('tags');
-            $data['status'] = $this->input->post('status');
-            $data['image'] = $this->wpanel->upload_media('capas');
-            // Identifica se é uma página ou uma postagem
-            // 0=post, 1=Página
-            $data['page'] = '1';
-            if ($this->post->insert($data))
+            $save_result = parent::get_add_post_result(self::PAGE_INDEX);
+            if ($save_result)
             {
                 $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/pages');
             } else
@@ -106,7 +74,7 @@ class Pages extends Authenticated_admin_controller
     }
 
     /**
-     * Edit an page.
+     * Edit a page.
      * 
      * @param int $id
      */
@@ -125,23 +93,8 @@ class Pages extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['description'] = $this->input->post('description');
-            $data['link'] = strtolower(url_title(convert_accented_characters($this->input->post('title'))));
-            $data['content'] = $this->input->post('content');
-            $data['tags'] = $this->input->post('tags');
-            $data['status'] = $this->input->post('status');
-            // Identifica se é uma página ou uma postagem
-            // 0=post, 1=Página
-            $data['page'] = '1';
-            if ($this->input->post('alterar_imagem') == '1')
-            {
-                $postagem = $this->post->find($id);
-                $this->wpanel->remove_media('capas/' . $postagem->image);
-                $data['image'] = $this->wpanel->upload_media('capas');
-            }
-            if ($this->post->update($id, $data))
+            $save_result = parent::get_update_post_result($id, self::PAGE_INDEX);
+            if ($save_result)
             {
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/pages');
             } else
@@ -150,7 +103,7 @@ class Pages extends Authenticated_admin_controller
     }
 
     /**
-     * Delete an page.
+     * Delete a page.
      * 
      * @param int $id
      */

@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
+/** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -6,12 +11,15 @@
  */
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-define('EXT', '.php');
+const EXT = '.php';
 
 /**
  * Esta classe provê os métodos para o funcionamento do mecanismo de Widget usado
  * no WpanelCMS.
  *
+ * @property CI_Loader $load
+ * @property CI_Config $config
+ * @property CI_Router $router
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Widget
@@ -62,7 +70,7 @@ class Widget
             $file = substr($file, $pos + 1);
         }
 
-        list($path, $file) = $this->_find($file, $module, 'widgets/');
+        list($path, $file) = $this->_find($file, $module);
 
         if ($path === FALSE)
             $path = APPPATH . 'widgets/';
@@ -86,10 +94,9 @@ class Widget
      *
      * @param String $file
      * @param String $module
-     * @param String $base
-     * @return Mixed
+     * @return array
      */
-    private function _find($file, $module, $base)
+    private function _find($file, $module)
     {
         $segments = explode('/', $file);
 
@@ -104,21 +111,20 @@ class Widget
             $modules[array_shift($segments)] = ltrim(implode('/', $segments) . '/', '/');
         }
 
-        foreach (array(APPPATH . 'modules/' => '../modules/') as $location => $offset)
+        $location = APPPATH . 'modules/';
+        $offset = '../modules/';
+        foreach ($modules as $module => $subpath)
         {
-            foreach ($modules as $module => $subpath)
+            $fullpath = $location . $module . '/' . 'widgets/' . $subpath;
+            if ('widgets/' == 'libraries/' OR 'widgets/' == 'models/')
             {
-                $fullpath = $location . $module . '/' . $base . $subpath;
-                if ($base == 'libraries/' OR $base == 'models/')
-                {
-                    if (is_file($fullpath . ucfirst($file_ext)))
-                        return array($fullpath, ucfirst($file));
-                }
-                else
-                    /* load non-class files */
-                    if (is_file($fullpath . $file_ext))
-                        return array($fullpath, $file);
+                if (is_file($fullpath . ucfirst($file_ext)))
+                    return array($fullpath, ucfirst($file));
             }
+            else
+                /* load non-class files */
+                if (is_file($fullpath . $file_ext))
+                    return array($fullpath, $file);
         }
         return array(FALSE, $file);
     }
@@ -128,20 +134,19 @@ class Widget
      *
      * @param string $file
      * @param string $path
-     * @param string $type
-     * @param bool $result
-     * @return mixed
+     * @return void
      */
-    private function _load_file($file, $path, $type = 'other', $result = TRUE)
+    private function _load_file($file, $path)
     {
+        $type = 'other';
         $file = str_replace(EXT, '', $file);
         $location = $path . $file . EXT;
-        if ($type === 'other')
+        if ('other' === 'other')
         {
             if (class_exists($file, FALSE))
             {
                 log_message('debug', "File already loaded: {$location}");
-                return $result;
+                return;
             }
             include_once $location;
         } else
@@ -150,12 +155,11 @@ class Widget
             include $location;
 
             if (!isset($$type) OR ! is_array($$type))
-                show_error("{$location} does not contain a valid {$type} array");
+                show_error("{$location} does not contain a valid other array");
 
             $result = $$type;
         }
         log_message('debug', "File loaded: {$location}");
-        return $result;
     }
 
 }

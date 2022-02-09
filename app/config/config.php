@@ -5,7 +5,7 @@
 | Base Site URL
 |--------------------------------------------------------------------------
 |
-| URL to your CodeIgniter root. Typically this will be your base URL,
+| URL to your CodeIgniter root. Typically, this will be your base URL,
 | WITH a trailing slash:
 |
 |	http://example.com/
@@ -148,7 +148,7 @@ $config['composer_autoload'] = APPPATH.'libraries/autoload.php';
 | get a warning message.
 |
 | As a security measure you are STRONGLY encouraged to restrict URLs to
-| as few characters as possible.  By default only these are allowed: a-z 0-9~%.:_-
+| as few characters as possible.  By default, only these are allowed: a-z 0-9~%.:_-
 |
 | Leave blank to allow all characters -- but only if you are insane.
 |
@@ -180,7 +180,7 @@ $config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
 | invoke your controllers and its functions:
 | example.com/index.php?c=controller&m=function
 |
-| Please note that some of the helpers won't work as expected when
+| Please note that some helpers won't work as expected when
 | this feature is enabled, since CodeIgniter is designed primarily to
 | use segment based URLs.
 |
@@ -386,7 +386,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 | 'cookie_secure'   = Cookie will only be set if a secure HTTPS connection exists.
 | 'cookie_httponly' = Cookie will only be accessible via HTTP(S) (no javascript)
 |
-| Note: These settings (with the exception of 'cookie_prefix' and
+| Note: These settings (except 'cookie_prefix' and
 |       'cookie_httponly') will also affect sessions.
 |
 */

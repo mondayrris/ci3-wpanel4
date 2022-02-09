@@ -18,13 +18,12 @@ class Wpnbackground extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
 
-        $html = "";
-        $html .= "<style type=\"text/css\">\n";
+        $html = "<style type=\"text/css\">\n";
         $html .= "\tbody {\n";
         if (wpn_config('background'))
             $html .= "\t\tbackground-image: url('" . base_url('media/' . wpn_config('background')) . "');\n";

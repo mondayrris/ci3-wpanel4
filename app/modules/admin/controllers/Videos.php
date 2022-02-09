@@ -9,7 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Video class
- * 
+ *
+ * @property Video $video
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Videos extends Authenticated_admin_controller
@@ -82,21 +83,16 @@ class Videos extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['titulo'] = $this->input->post('titulo');
-            $data['descricao'] = $this->input->post('descricao');
-            $data['tags'] = $this->input->post('tags');
-            $data['link'] = $this->get_youtube_code($this->input->post('link'));
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             if ($this->video->insert($data))
-                $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/videos');
+                $this->set_message(wpn_lang('wpn_message_get_save_data_success'), 'success', 'admin/videos');
             else
-                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/videos');
+                $this->set_message(wpn_lang('wpn_message_get_save_data_error'), 'danger', 'admin/videos');
         }
     }
 
     /**
-     * Edit an video.
+     * Edit a video.
      * 
      * @param int $id
      */
@@ -111,12 +107,7 @@ class Videos extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['titulo'] = $this->input->post('titulo');
-            $data['descricao'] = $this->input->post('descricao');
-            $data['tags'] = $this->input->post('tags');
-            $data['link'] = $this->get_youtube_code($this->input->post('link'));
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             if ($this->video->update($id, $data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/videos');
             else
@@ -125,7 +116,7 @@ class Videos extends Authenticated_admin_controller
     }
 
     /**
-     * Delete an video.
+     * Delete a video.
      * 
      * @param int $id
      */
@@ -140,7 +131,7 @@ class Videos extends Authenticated_admin_controller
     }
 
     /**
-     * Return youtube code by an URI
+     * Return YouTube code by a URI
      * 
      * @param string $url
      * @return string
@@ -152,4 +143,17 @@ class Videos extends Authenticated_admin_controller
     }
 
     /* append-here */
+    /**
+     * @return array
+     */
+    private function _get_save_data()
+    {
+        $data = array();
+        $data['titulo'] = $this->input->post('titulo');
+        $data['descricao'] = $this->input->post('descricao');
+        $data['tags'] = $this->input->post('tags');
+        $data['link'] = $this->get_youtube_code($this->input->post('link'));
+        $data['status'] = $this->input->post('status');
+        return $data;
+    }
 }

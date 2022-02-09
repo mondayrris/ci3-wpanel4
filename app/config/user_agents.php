@@ -1,4 +1,6 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php /** @noinspection PhpDuplicateArrayKeysInspection */
+/** @noinspection PhpDuplicateArrayKeysInspection */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | USER AGENT TYPES
@@ -46,7 +48,7 @@ $platforms = array (
 
 
 // The order of this array should NOT be changed. Many browsers return
-// multiple browser types so we want to identify the sub-type first.
+// multiple browser types, so we want to identify the sub-type first.
 $browsers = array(
 					'Flock'				=> 'Flock',
 					'Chrome'			=> 'Chrome',

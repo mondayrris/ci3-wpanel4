@@ -26,7 +26,7 @@ class Notification extends MY_Model
      * Cria uma nova notificação, ignora caso já exista uma com a mesma URL.
      * 
      * @param array $data
-     * @return int
+     * @return int|void
      */
     public function new_notification($data)
     {

@@ -11,8 +11,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Classe da biblioteca Wpanel.
  *
  * This class maintain the methods widely used in WpanelCms.
-
  * @author Eliel de Paula <dev@elieldepaula.com.br>
+ *
+ * @property mixed $image_lib
+ * @property mixed $load
+ * @property mixed $upload
+ * @property mixed $email
+ * @property mixed $configuracao
  */
 class Wpanel
 {
@@ -39,7 +44,7 @@ class Wpanel
     protected $meta_image = '';
 
     /**
-     * Key words for meta tags
+     * Keywords for meta tags
      *
      * @var $meta_keywords string
      */
@@ -77,7 +82,8 @@ class Wpanel
     /**
      * This method creates a list of HTML parametters sent by array.
      *
-     * @return string
+     * @return string|void
+     * @noinspection PhpUnusedPrivateMethodInspection
      */
     private function _attributes($attributes)
     {
@@ -98,7 +104,7 @@ class Wpanel
      * an array() passed on load of the class.
      *
      * @param $config array()
-     * @return void
+     * @return Wpanel
      */
     public function initialize($config = array())
     {
@@ -199,7 +205,7 @@ class Wpanel
     /**
      * Return a full meta-tag to be inserted into the <head> of the site.
      *
-     * @return mixed
+     * @return string
      */
     public function get_meta()
     {
@@ -257,7 +263,6 @@ class Wpanel
             case 'ckeditor':
                 $html .= "\n\n<script type=\"text/javascript\" src=\"" . base_url('lib/plugins/ckeditor/ckeditor.js') . "\"></script>\n";
                 return $html;
-                break;
             case 'tinymce':
                 $html .= '<script src="' . base_url('lib/plugins/tinymce/tinymce.min.js') . '"></script>';
                 $html .= '<script>tinymce.init({selector:\'textarea#editor\',';
@@ -270,10 +275,8 @@ class Wpanel
                 $html .= '        toolbar: " bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image"';
                 $html .= '});</script>';
                 return $html;
-                break;
             default:
                 return false;
-                break;
         }
     }
 
@@ -289,7 +292,6 @@ class Wpanel
      *        'to' => '',
      *        'subject' => '',
      *        'message' => '',
-     *    )
      *
      * @param array $data
      * @return bool
@@ -300,7 +302,7 @@ class Wpanel
             return FALSE;
         // Load the library.
         $this->load->library('email');
-        // Check if use SMTP.
+        // Check if you use SMTP.
         if (wpn_config("usa_smtp"))
         {
             $config['smtp_host'] = wpn_config("smtp_servidor");
@@ -327,7 +329,7 @@ class Wpanel
         $this->email->subject($data['subject']);
         $this->email->message($data['message']);
 
-        // Verify the succes of the send.
+        // Verify the succes of to send.
         if ($this->email->send())
         {
             log_message('debug', $this->email->print_debugger() . " Success");
@@ -345,8 +347,8 @@ class Wpanel
      * @param $path String Path where the file must be saved.
      * @param $types String File type: gif|jpg|png.
      * @param $fieldname String Field name of the form.
-     * @param $filename String Optional file name..
-     * @return mixed
+     * @param $filename String Optional file name.
+     * @return false|void
      */
     public function upload_media($path, $types = '*', $fieldname = 'userfile', $filename = null)
     {
@@ -411,10 +413,10 @@ class Wpanel
     }
     
     /**
-     * Read an Json file and return the content as object.
+     * Read a Json file and return the content as object.
      * 
      * @param string $filename Full path to the file.
-     * @return mixed
+     * @return false|object
      */
     public function read_json($filename = NULL)
     {
@@ -423,8 +425,7 @@ class Wpanel
             return FALSE;
         
         $json = file_get_contents($filename);
-        $result = (object) json_decode($json);
-        return $result;
+        return (object) json_decode($json);
         
     }
     

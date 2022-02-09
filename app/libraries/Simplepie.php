@@ -1,4 +1,25 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+<?php /** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
  * SimplePie
@@ -827,12 +848,12 @@ class SimplePie
 			$this->multifeed_url = array();
 			foreach ($url as $value)
 			{
-				$this->multifeed_url[] = SimplePie_Misc::fix_protocol($value, 1);
+				$this->multifeed_url[] = (new SimplePie_Misc)->fix_protocol($value, 1);
 			}
 		}
 		else
 		{
-			$this->feed_url = SimplePie_Misc::fix_protocol($url, 1);
+			$this->feed_url = (new SimplePie_Misc)->fix_protocol($url, 1);
 		}
 	}
 
@@ -1028,7 +1049,7 @@ class SimplePie
 	 */
 	function set_cache_class($class = 'SimplePie_Cache')
 	{
-		if (SimplePie_Misc::is_subclass_of($class, 'SimplePie_Cache'))
+		if ((new SimplePie_Misc)->is_subclass_of($class, 'SimplePie_Cache'))
 		{
 			$this->cache_class = $class;
 			return true;
@@ -2780,7 +2801,7 @@ class SimplePie
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[1];
 		}
@@ -2800,7 +2821,7 @@ class SimplePie
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_channel_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[2];
 		}
@@ -5592,7 +5613,7 @@ class SimplePie_Item
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[1];
 		}
@@ -5612,7 +5633,7 @@ class SimplePie_Item
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_item_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[2];
 		}
@@ -6235,7 +6256,7 @@ class SimplePie_Source
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[1];
 		}
@@ -6255,7 +6276,7 @@ class SimplePie_Source
 		{
 			return (float) $return[0]['data'];
 		}
-		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^((?:-)?[0-9]+(?:\.[0-9]+)) ((?:-)?[0-9]+(?:\.[0-9]+))$/', trim($return[0]['data']), $match))
+		elseif (($return = $this->get_source_tags(SIMPLEPIE_NAMESPACE_GEORSS, 'point')) && preg_match('/^(-?[0-9]+\.[0-9]+) (-?[0-9]+\.[0-9]+)$/', trim($return[0]['data']), $match))
 		{
 			return (float) $match[2];
 		}
@@ -9492,7 +9513,7 @@ class SimplePie_Misc
 	function encoding($charset)
 	{
 		// Normalization from UTS #22
-		switch (strtolower(preg_replace('/(?:[^a-zA-Z0-9]+|([^0-9])0+)/', '\1', $charset)))
+		switch (strtolower(preg_replace('/[^a-zA-Z0-9]+|([^0-9])0+/', '\1', $charset)))
 		{
 			case 'adobestandardencoding':
 			case 'csadobestandardencoding':
@@ -15170,7 +15191,7 @@ class SimplePie_Sanitize
 				{
 					foreach ($this->strip_attributes as $attrib)
 					{
-						$data = preg_replace('/(<[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*)' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . trim($attrib) . '(?:\s*=\s*(?:"(?:[^"]*)"|\'(?:[^\']*)\'|(?:[^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>/', '\1\2\3>', $data);
+						$data = preg_replace('/(<[A-Za-z][^\x09\x0A\x0B\x0C\x0D\x20\x2F\x3E]*)' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . trim($attrib) . '(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|(?:[^\x09\x0A\x0B\x0C\x0D\x20\x22\x27\x3E][^\x09\x0A\x0B\x0C\x0D\x20\x3E]*)?))?' . SIMPLEPIE_PCRE_HTML_ATTRIBUTE . '>/', '\1\2\3>', $data);
 					}
 				}
 

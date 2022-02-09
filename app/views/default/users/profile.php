@@ -20,14 +20,16 @@
             <div class="form-group">
                 <label for="name" class="col-sm-2 control-label">Nome</label>
                 <div class="col-sm-5">
-                    <input type="text" name="name" id="name" value="<?= $profile->name ?>" class="form-control"  />
+                    <input type="text" name="name" id="name" value="<?php $profile = isset($profile) ? $profile : new stdClass();
+                    echo $profile->name ?>" class="form-control"  />
                     <?= form_error('name'); ?>
                 </div>
             </div>
             <div class="form-group" id="fantasia">
                 <label for="email" class="col-sm-2 control-label">E-mail</label>
                 <div class="col-sm-5">
-                    <input type="text" name="email" id="email" value="<?= $account->email; ?>" class="form-control" />
+                    <input type="text" name="email" id="email" value="<?php $account = isset($account) ? $account : new stdClass();
+                    echo $account->email; ?>" class="form-control " />
                 </div>
             </div>
         
@@ -35,7 +37,7 @@
             <!-- <div class="form-group">
                 <label for="demo" class="col-sm-2 control-label">Demo</label>
                 <div class="col-sm-5">
-                    <input type="text" name="demo" id="demo" value="<?hp // $profile->demo ?>" class="form-control"  />
+                    <input type="text" name="demo" id="demo" value="<?php // $profile->demo ?>" class="form-control"  />
                     <?php // form_error('demo'); ?>
                 </div>
             </div> -->

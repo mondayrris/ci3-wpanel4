@@ -1,4 +1,6 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php /** @noinspection ALL */
+/** @noinspection ALL */
+defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 A PHP Error was encountered
 

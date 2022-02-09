@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,6 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Control panel dashboard.
  *
+ * @property Video $video
+ * @property Gallery $gallery
+ * @property Banner $banner
+ * @property Post $post
  * @author Eliel de Paula <dev@gelieldepaula.com.br>
  * */
 class Dashboard extends Authenticated_admin_controller

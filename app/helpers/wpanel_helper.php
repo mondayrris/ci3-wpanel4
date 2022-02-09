@@ -18,7 +18,7 @@ if (!function_exists('wpn_asset'))
 {
 
     /**
-     * Get the include code for assets: CSS or JavaScript.
+     * Get to include code for assets: CSS or JavaScript.
      *
      * @param $type string Type of library, CSS, JS or Custom.
      * @param $filename string File name to be included.
@@ -33,13 +33,10 @@ if (!function_exists('wpn_asset'))
         {
             case 'css':
                 return "<link href=\"" . base_url( 'themes/' . $theme . '/css/' . $filename) . "\" rel=\"stylesheet\">\n";
-                break;
             case 'js':
                 return "<script src=\"" . base_url('themes/' . $theme . '/js/' . $filename) . "\" type=\"text/javascript\"></script>\n";
-                break;
             case 'custom':
                 return $filename;
-                break;
         }
     }
 
@@ -56,7 +53,7 @@ if (!function_exists('wpn_config'))
      */
     function wpn_config($item = null)
     {
-        $CI = & get_instance();
+        $CI = get_CI_instance();
         return $CI->wpanel->get_config($item);
     }
 
@@ -68,11 +65,11 @@ if (!function_exists('wpn_meta'))
     /**
      * Return a full Meta-Tag to header of the site.
      *
-     * @return mixed
+     * @return string
      */
     function wpn_meta()
     {
-        $CI = & get_instance();
+        $CI = get_CI_instance();
         return $CI->wpanel->get_meta();
     }
 
@@ -253,7 +250,7 @@ if (!function_exists('formata_money'))
      *
      * @param $var double Valor a ser convertido.
      * @param $format string Formato do retorno.
-     * @return mixed
+     * @return array|string|string[]|void
      */
     function formata_money($var, $format = 'br')
     {

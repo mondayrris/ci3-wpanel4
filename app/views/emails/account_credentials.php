@@ -1,3 +1,7 @@
+<?php
+$email = isset($email) ? $email : '';
+$password = isset($password) ? $password : '';
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -5,7 +9,7 @@
         <title>Recuperação de senha | <?= wpn_config('site_titulo'); ?></title>
         <style>
             body {
-                font-family: verdana;
+                font-family: verdana, serif;
                 margin: 30px;
                 background-color: #cccccc;
             }

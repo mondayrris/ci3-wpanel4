@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Class Developers.
- * 
+ *
+ * @property DevelopersModel $developersModel
+ * @property Wpanel $wpanel
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Developers extends Authenticated_admin_controller
@@ -189,7 +191,7 @@ class Developers extends Authenticated_admin_controller
                     $id_migration = $temp_id[0];
                     $filename = str_replace('.php', '', $map[$i]);
                     
-                    if($temp_id[0] == $this->DevelopersModel->get_migration_version())
+                    if($temp_id[0] == $this->developersModel->get_migration_version())
                         $label_versao = '<span class="label label-danger">'. wpn_lang('actual_version').'</span>';
                     else
                         $label_versao = '';
@@ -206,7 +208,7 @@ class Developers extends Authenticated_admin_controller
                 }
             }
             
-            $this->set_var('lista_migrations', form_dropdown('versao', $this->DevelopersModel->get_migration_list()));
+            $this->set_var('lista_migrations', form_dropdown('versao', $this->developersModel->get_migration_list()));
             $this->set_var('listagem', $this->table->generate());
             $this->render();
 
@@ -241,7 +243,7 @@ class Developers extends Authenticated_admin_controller
         $config['file_ext_tolower'] = TRUE;
 
         $this->load->library('upload', $config);
-        if ($this->upload->do_upload('userfile'))
+        if ($this->upload->do_upload())
             $this->set_message(wpn_lang('msg_uploadmigration_success'), 'success', 'admin/developers/modmigration');
         else
             $this->set_message(wpn_lang('msg_uploadmigration_error'), 'danger', 'admin/developers/modmigration');
@@ -277,17 +279,13 @@ class Developers extends Authenticated_admin_controller
      */
     private function _check_dbdriver()
     {
-        include FCPATH . 'config/database.php';
+        $db = include FCPATH . 'config/database.php';
         switch ($db[ENVIRONMENT]['dbdriver']) {
+            case 'mysql':
             case 'mysqli':
                 return TRUE;
-                break;
-            case 'mysql';
-                return TRUE;
-                break;
             default:
                 return FALSE;
-                break;
         }
     }
     

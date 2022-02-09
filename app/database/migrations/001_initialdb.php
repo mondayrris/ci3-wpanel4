@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,8 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Migration class.
  *
- * This class creates a initial database to WpanelCms.
+ * This class creates an initial database to WpanelCms.
  *
+ * @property CI_DB_forge $dbforge
+ * @property CI_DB_query_builder $db
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Migration_Initialdb extends CI_Migration

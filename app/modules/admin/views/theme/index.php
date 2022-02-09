@@ -1,4 +1,5 @@
-<?php $this->load->view('theme/header'); ?>
+<?php /** @noinspection PhpUndefinedVariableInspection */
+$this->load->view('theme/header'); ?>
 <?php if (isset($notice)) : ?>
     <?php echo $notice; ?>
 <?php else : ?>

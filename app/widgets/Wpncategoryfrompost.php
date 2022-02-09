@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Category from posts class.
- * 
+ *
+ * @property Category $category
+ * @property CI_Loader $load
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpncategoryfrompost extends Widget
@@ -32,7 +34,7 @@ class Wpncategoryfrompost extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {

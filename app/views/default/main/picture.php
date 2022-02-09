@@ -1,5 +1,5 @@
-<?php 
-
+<?php /** @noinspection PhpUndefinedFieldInspection */
+/** @noinspection PhpUndefinedVariableInspection */
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
  * @license http://wpanel.org/license

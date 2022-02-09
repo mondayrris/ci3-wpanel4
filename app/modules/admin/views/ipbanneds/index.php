@@ -1,4 +1,6 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php /** @noinspection DuplicatedCode */
+/** @noinspection PhpUndefinedVariableInspection */
+if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 
 <section class="content-header">
     <h1>

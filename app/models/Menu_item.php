@@ -27,7 +27,7 @@ class Menu_item extends MY_Model
      * Delete items by menu id.
      * 
      * @param int $menu_id
-     * @return mixed
+     * @return int
      */
     public function delete_by_menu($menu_id)
     {

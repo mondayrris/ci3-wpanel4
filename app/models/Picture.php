@@ -9,7 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Model Picture
- * 
+ *
+ * @property Wpanel $wpanel
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Picture extends MY_Model
@@ -27,7 +28,7 @@ class Picture extends MY_Model
      * This method removes all images and directory from an album.
      * 
      * @param int $album_id
-     * @return mixed
+     * @return bool|string
      */
     public function delete_by_album($album_id)
     {

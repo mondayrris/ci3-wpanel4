@@ -1,3 +1,4 @@
+<?php /** @noinspection PhpUndefinedVariableInspection */?>
 <div class="box">
     <div class="box-header with-border">
         <h3 class="box-title"><?= wpn_lang('module_itens'); ?></h3>

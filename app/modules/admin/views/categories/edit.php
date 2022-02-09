@@ -1,3 +1,5 @@
+<?php /** @noinspection PhpUndefinedVariableInspection */?>
+
 <section class="content-header">
     <h1>
         <?= wpn_lang('module_title'); ?>

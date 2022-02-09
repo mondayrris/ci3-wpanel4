@@ -37,7 +37,7 @@ $config['migration_type'] = 'sequential';
 |--------------------------------------------------------------------------
 |
 | This is the name of the table that will store the current migrations state.
-| When migrations runs it will store in a database table which migration
+| When migrations run it will store in a database table which migration
 | level the system is at. It then compares the migration level in this
 | table to the $config['migration_version'] if they are not the same it
 | will migrate up. This must be set.
@@ -78,7 +78,7 @@ $config['migration_version'] = 1;
 |
 | Path to your migrations folder.
 | Typically, it will be within your application path.
-| Also, writing permission is required within the migrations path.
+| Also, writing permission is required within the migrations' path.
 |
 */
 $config['migration_path'] = APPPATH.'database/migrations/';

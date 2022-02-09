@@ -11,6 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * Este é o controller de categorias, usado principalmente
  * no painel de controle do site.
  *
+ * @property Category $category
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Categories extends Authenticated_admin_controller
@@ -88,12 +89,7 @@ class Categories extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['description'] = $this->input->post('description');
-            $data['link'] = url_title(convert_accented_characters($this->input->post('title')));
-            $data['category_id'] = $this->input->post('category_id');
-            $data['view'] = $this->input->post('view');
+            $data = $this->_get_save_data();
             if ($this->category->insert($data))
                 $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/categories');
             else
@@ -102,7 +98,7 @@ class Categories extends Authenticated_admin_controller
     }
 
     /**
-     * Edit an category.
+     * Edit a category.
      * 
      * @param int $id
      */
@@ -126,12 +122,7 @@ class Categories extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['description'] = $this->input->post('description');
-            $data['link'] = url_title(convert_accented_characters($this->input->post('title')));
-            $data['category_id'] = $this->input->post('category_id');
-            $data['view'] = $this->input->post('view');
+            $data = $this->_get_save_data();
             if ($this->category->update($id, $data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/categories');
             else
@@ -140,7 +131,7 @@ class Categories extends Authenticated_admin_controller
     }
 
     /**
-     * Delete an category.
+     * Delete a category.
      * 
      * @param int $id
      */
@@ -152,6 +143,20 @@ class Categories extends Authenticated_admin_controller
             $this->set_message(wpn_lang('wpn_message_delete_success'), 'success', 'admin/categories');
         else
             $this->set_message(wpn_lang('wpn_message_delete_error'), 'danger', 'admin/categories');
+    }
+
+    /**
+     * @return array
+     */
+    private function _get_save_data()
+    {
+        $data = array();
+        $data['title'] = $this->input->post('title');
+        $data['description'] = $this->input->post('description');
+        $data['link'] = url_title(convert_accented_characters($this->input->post('title')));
+        $data['category_id'] = $this->input->post('category_id');
+        $data['view'] = $this->input->post('view');
+        return $data;
     }
 
 }

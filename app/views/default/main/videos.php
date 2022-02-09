@@ -1,12 +1,13 @@
-<?php 
+<?php /** @noinspection PhpUndefinedVariableInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
  * @license http://wpanel.org/license
  */
 
-defined('BASEPATH') OR exit('No direct script access allowed'); 
+defined('BASEPATH') OR exit('No direct script access allowed');
 
+/** @noinspection PhpUndefinedVariableInspection */
 ?>
 <!-- Bibliotecas adicionais para o Fancybox. -->
 <script type="text/javascript" src="<?= base_url('lib/plugins/fancybox/jquery.fancybox.pack.js'); ?>"></script>
@@ -26,6 +27,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="row">
     <?php
     $num_cols = 1;
+    $max_cols = isset($max_cols) ? $max_cols : 1;
+    $videos = isset($videos) ? $videos : [];
     foreach ($videos as $video) {
 
         /*
@@ -38,10 +41,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="thumbnail">
                 <div class="inner-video">
                     <?php
-                    $conf_foto = array(
-                        'src' => 'http://img.youtube.com/vi/' . $video->link . '/0.jpg',
+                    $conf_foto = [
+                        'src' => 'https://img.youtube.com/vi/' . $video->link . '/0.jpg',
                         'class' => 'img-responsive'
-                    );
+                    ];
                     
                     // Monta o link de acordo com a definição de exibição das configurações.
                     switch (wpn_config('media_show_video')) {

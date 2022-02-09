@@ -5,6 +5,7 @@
  *
  * Work with remote servers via cURL much easier than using the native PHP bindings.
  *
+ * @property bool|string $last_response
  * @package        	CodeIgniter
  * @subpackage    	Libraries
  * @category    	Libraries
@@ -37,6 +38,11 @@ class Curl {
 		$url AND $this->create($url);
 	}
 
+    /**
+     * @param $method
+     * @param $arguments
+     * @return false|mixed|void
+     */
 	public function __call($method, $arguments)
 	{
 		if (in_array($method, array('simple_get', 'simple_post', 'simple_put', 'simple_delete', 'simple_patch')))
@@ -46,7 +52,7 @@ class Curl {
 			array_unshift($arguments, $verb);
 			return call_user_func_array(array($this, '_simple_call'), $arguments);
 		}
-	}
+    }
 
 	/* =================================================================================
 	 * SIMPLE METHODS
@@ -55,11 +61,11 @@ class Curl {
 
 	public function _simple_call($method, $url, $params = array(), $options = array())
 	{
-		// Get acts differently, as it doesnt accept parameters in the same way
+		// Get acts differently, as it doesn't accept parameters in the same way
 		if ($method === 'get')
 		{
 			// If a URL is provided, create new session
-			$this->create($url.($params ? '?'.http_build_query($params, NULL, '&') : ''));
+			$this->create($url.($params ? '?'.http_build_query($params, NULL) : ''));
 		}
 
 		else
@@ -114,10 +120,10 @@ class Curl {
 
 	public function post($params = array(), $options = array())
 	{
-		// If its an array (instead of a query string) then format it correctly
+		// If it's an array (instead of a query string) then format it correctly
 		if (is_array($params))
 		{
-			$params = http_build_query($params, NULL, '&');
+			$params = http_build_query($params, NULL);
 		}
 
 		// Add in the specific options provided
@@ -131,10 +137,10 @@ class Curl {
 
 	public function put($params = array(), $options = array())
 	{
-		// If its an array (instead of a query string) then format it correctly
+		// If it's an array (instead of a query string) then format it correctly
 		if (is_array($params))
 		{
-			$params = http_build_query($params, NULL, '&');
+			$params = http_build_query($params, NULL);
 		}
 
 		// Add in the specific options provided
@@ -149,10 +155,10 @@ class Curl {
 
 	public function patch($params = array(), $options = array())
 	{
-		// If its an array (instead of a query string) then format it correctly
+		// If it's an array (instead of a query string) then format it correctly
 		if (is_array($params))
 		{
-			$params = http_build_query($params, NULL, '&');
+			$params = http_build_query($params, NULL);
 		}
 
 		// Add in the specific options provided
@@ -167,10 +173,10 @@ class Curl {
 
 	public function delete($params, $options = array())
 	{
-		// If its an array (instead of a query string) then format it correctly
+		// If it's an array (instead of a query string) then format it correctly
 		if (is_array($params))
 		{
-			$params = http_build_query($params, NULL, '&');
+			$params = http_build_query($params, NULL);
 		}
 
 		// Add in the specific options provided
@@ -185,7 +191,7 @@ class Curl {
 	{
 		if (is_array($params))
 		{
-			$params = http_build_query($params, NULL, '&');
+			$params = http_build_query($params, NULL);
 		}
 
 		$this->option(CURLOPT_COOKIE, $params);

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -9,7 +9,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Gallety class.
- * 
+ *
+ * @property Picture $picture
+ * @property Wpanel $wpanel
+ * @property Gallery $gallery
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Galleries extends Authenticated_admin_controller
@@ -90,11 +93,7 @@ class Galleries extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['titulo'] = $this->input->post('titulo');
-            $data['descricao'] = $this->input->post('descricao');
-            $data['tags'] = $this->input->post('tags');
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             $data['capa'] = $this->wpanel->upload_media('capas');
             $new_post = $this->gallery->insert($data);
             mkdir('./media/albuns/' . $new_post);
@@ -106,7 +105,7 @@ class Galleries extends Authenticated_admin_controller
     }
 
     /**
-     * Edit an gallery.
+     * Edit a gallery.
      * 
      * @param int $id
      */
@@ -122,11 +121,7 @@ class Galleries extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['titulo'] = $this->input->post('titulo');
-            $data['descricao'] = $this->input->post('descricao');
-            $data['tags'] = $this->input->post('tags');
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             if ($this->input->post('alterar_imagem') == '1')
             {
                 $query = $this->gallery->find($id);
@@ -290,7 +285,7 @@ class Galleries extends Authenticated_admin_controller
     }
 
     /**
-     * Edit an picture.
+     * Edit a picture.
      *
      * @param int $id
      */
@@ -323,7 +318,7 @@ class Galleries extends Authenticated_admin_controller
     }
 
     /**
-     * Delete an picture.
+     * Delete a picture.
      *
      * @param int $id
      */
@@ -337,6 +332,19 @@ class Galleries extends Authenticated_admin_controller
             $this->set_message(wpn_lang('wpn_message_delete_success'), 'success', 'admin/galleries/pictures/' . $qry_picture->album_id);
         else
             $this->set_message(wpn_lang('wpn_message_delete_error'), 'danger', 'admin/galleries/pictures/' . $qry_picture->album_id);
+    }
+
+    /**
+     * @return array
+     */
+    private function _get_save_data()
+    {
+        $data = array();
+        $data['titulo'] = $this->input->post('titulo');
+        $data['descricao'] = $this->input->post('descricao');
+        $data['tags'] = $this->input->post('tags');
+        $data['status'] = $this->input->post('status');
+        return $data;
     }
 
 }

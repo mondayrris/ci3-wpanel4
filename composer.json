@@ -12,7 +12,9 @@
         }
     ],
     "require": {
-        "php": ">=7.0.0"
+        "php": ">=5.6",
+        "ext-json": "*",
+        "ext-curl": "*"
     },
     "config": {
         "vendor-dir": "./app/libraries"

@@ -41,5 +41,5 @@
         </button>
         <?= form_close(); ?>
     </div>
-    <p class="text-center" style="padding-top:20px;">&copy; Wpanel CMS <?= date('Y') ?>, all rights reserved.<br/>Developed by <a href="http://dotsistemas.com.br" target="_blank">Dot Sistemas</a>.</p>
+    <p class="text-center" style="padding-top:20px;">&copy; Wpanel CMS <?= date('Y') ?>, all rights reserved.<br/>Developed by <a href="https://dotsistemas.com.br" target="_blank">Dot Sistemas</a>.</p>
 </div>

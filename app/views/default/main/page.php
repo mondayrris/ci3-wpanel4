@@ -1,4 +1,4 @@
-<?php 
+<?php /** @noinspection PhpUndefinedVariableInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>

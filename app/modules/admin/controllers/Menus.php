@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpUnused */
+/** @noinspection PhpUndefinedVariableInspection */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -9,7 +10,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Menu Class
- * 
+ *
+ * @property $menu
+ * @property Category $category
+ * @property Post $post
+ * @property Menu_item $menu_item
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Menus extends Authenticated_admin_controller
@@ -62,15 +67,11 @@ class Menus extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['nome'] = $this->input->post('nome');
-            $data['slug'] = strtolower(url_title(convert_accented_characters($this->input->post('nome'))));
-            $data['posicao'] = $this->input->post('posicao');
-            $data['estilo'] = $this->input->post('estilo');
+            $data = $this->_save_menu();
             if ($this->menu->insert($data))
-                $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/menus');
+                $this->set_message(wpn_lang('wpn_message_save_menu_success'), 'success', 'admin/menus');
             else
-                $this->set_message(wpn_lang('wpn_message_save_error'), 'danger', 'admin/menus');
+                $this->set_message(wpn_lang('wpn_message_save_menu_error'), 'danger', 'admin/menus');
         }
     }
 
@@ -91,11 +92,7 @@ class Menus extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['nome'] = $this->input->post('nome');
-            $data['slug'] = strtolower(url_title(convert_accented_characters($this->input->post('nome'))));
-            $data['posicao'] = $this->input->post('posicao');
-            $data['estilo'] = $this->input->post('estilo');
+            $data = $this->_save_menu();
             if ($this->menu->update($id, $data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus');
             else
@@ -141,30 +138,7 @@ class Menus extends Authenticated_admin_controller
             $tipo_link = $this->input->post('tipo');
             $data = array();
             $data['menu_id'] = $menu_id;
-            $data['label'] = $this->input->post('label');
-            $data['tipo'] = $tipo_link;
-            $data['slug'] = '';
-            $data['ordem'] = $this->input->post('ordem');
-            $data['target'] = $this->input->post('target');
-            // Verifica de onde vem os dados para o campo 'link'
-            switch ($tipo_link)
-            {
-                case 'link':
-                    $data['href'] = $this->input->post('link');
-                    break;
-                case 'post':
-                    $data['href'] = $this->input->post('post_id');
-                    break;
-                case 'posts':
-                    $data['href'] = $this->input->post('categoria_id');
-                    break;
-                case 'funcional':
-                    $data['href'] = $this->input->post('funcional');
-                    break;
-                case 'submenu':
-                    $data['href'] = $this->input->post('submenu');
-                    break;
-            }
+            $data = $this->_save_menu_item($data, $tipo_link);
 
             if ($this->menu_item->insert($data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus');
@@ -196,30 +170,7 @@ class Menus extends Authenticated_admin_controller
         {
             $tipo_link = $this->input->post('tipo');
             $data = array();
-            $data['label'] = $this->input->post('label');
-            $data['tipo'] = $tipo_link;
-            $data['slug'] = '';
-            $data['ordem'] = $this->input->post('ordem');
-            $data['target'] = $this->input->post('target');
-            // Verifica de onde vem os dados para o campo 'link'
-            switch ($tipo_link)
-            {
-                case 'link':
-                    $data['href'] = $this->input->post('link');
-                    break;
-                case 'post':
-                    $data['href'] = $this->input->post('post_id');
-                    break;
-                case 'posts':
-                    $data['href'] = $this->input->post('categoria_id');
-                    break;
-                case 'funcional':
-                    $data['href'] = $this->input->post('funcional');
-                    break;
-                case 'submenu':
-                    $data['href'] = $this->input->post('submenu');
-                    break;
-            }
+            $data = $this->_save_menu_item($data, $tipo_link);
             if ($this->menu_item->update($id, $data))
                 $this->set_message(wpn_lang('wpn_message_update_success'), 'success', 'admin/menus');
             else
@@ -246,7 +197,7 @@ class Menus extends Authenticated_admin_controller
      * Return the menu items.
      * 
      * @param int $menu_id
-     * @return mixed
+     * @return object|string
      */
     private function get_menu_item($menu_id)
     {
@@ -332,6 +283,52 @@ class Menus extends Authenticated_admin_controller
             return $query->nome;
         else
             return '<span class="label label-danger">Error</span>';
+    }
+
+    /**
+     * @return array
+     */
+    private function _save_menu()
+    {
+        $data = array();
+        $data['nome'] = $this->input->post('nome');
+        $data['slug'] = strtolower(url_title(convert_accented_characters($this->input->post('nome'))));
+        $data['posicao'] = $this->input->post('posicao');
+        $data['estilo'] = $this->input->post('estilo');
+        return $data;
+    }
+
+    /**
+     * @param array $data
+     * @param $tipo_link
+     * @return array
+     */
+    private function _save_menu_item(array $data, $tipo_link)
+    {
+        $data['label'] = $this->input->post('label');
+        $data['tipo'] = $tipo_link;
+        $data['slug'] = '';
+        $data['ordem'] = $this->input->post('ordem');
+        $data['target'] = $this->input->post('target');
+        // Verifica de onde vem os dados para o campo 'link'
+        switch ($tipo_link) {
+            case 'link':
+                $data['href'] = $this->input->post('link');
+                break;
+            case 'post':
+                $data['href'] = $this->input->post('post_id');
+                break;
+            case 'posts':
+                $data['href'] = $this->input->post('categoria_id');
+                break;
+            case 'funcional':
+                $data['href'] = $this->input->post('funcional');
+                break;
+            case 'submenu':
+                $data['href'] = $this->input->post('submenu');
+                break;
+        }
+        return $data;
     }
 
 }

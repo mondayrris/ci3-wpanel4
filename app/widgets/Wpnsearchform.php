@@ -17,12 +17,11 @@ class Wpnsearchform extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
-        $html = "";
-        $html .= form_open('search', array('class' => 'form-inline', 'role' => 'form'));
+        $html = form_open('search', array('class' => 'form-inline', 'role' => 'form'));
         $html .= "<div class=\"form-group\">";
         $html .= "    <input type=\"text\" name=\"search\" class=\"form-control\" placeholder=\"Pesquisar ...\" />";
         $html .= "</div>";

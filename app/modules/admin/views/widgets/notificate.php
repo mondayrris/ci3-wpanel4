@@ -1,4 +1,5 @@
-<?php if($query) { ?>
+<?php /** @noinspection PhpUndefinedVariableInspection */
+if($query) { ?>
 <!-- Notifications: style can be found in dropdown.less -->
 <li class="dropdown notifications-menu">
     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -12,6 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * gerada automaticamente pela ferramenta Wpanel-GEN para a criação
  * de códigos padrão para o Wpanel CMS.
  *
+ * @property Ipallowed $ipallowed
+ * @property Ipban $ipban
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Ipalloweds extends Authenticated_admin_controller

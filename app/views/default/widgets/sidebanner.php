@@ -1,5 +1,6 @@
 <div class="sidebar-banner">
-    <?php foreach ($banners as $row) :
+    <?php $banners = isset($banners) ? $banners : [];
+    foreach ($banners as $row) :
         $conf_foto = array(
             'src' => 'media/banners/' . $row->content,
             'class' => 'img-responsive',

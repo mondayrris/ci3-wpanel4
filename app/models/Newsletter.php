@@ -27,6 +27,7 @@ class Newsletter extends MY_Model
      * Create a new lead.
      * 
      * @param array $data Array com os dados do lead.
+     * @return int|void
      */
     public function create_lead($data = array())
     {

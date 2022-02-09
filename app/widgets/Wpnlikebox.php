@@ -32,7 +32,7 @@ class Wpnlikebox extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
@@ -61,8 +61,7 @@ class Wpnlikebox extends Widget
      */
     public function likebox($colorscheme = 'light', $show_faces = 'true', $header = 'false', $stream = 'false', $show_border = 'false', $width = '300', $height = '250')
     {
-        $html = "";
-        $html .= "<div class=\"fb-like-box\"
+        return "<div class=\"fb-like-box\"
                         data-href=\"" . wpn_config('link_likebox') . "\"
                         data-colorscheme=\"" . $colorscheme . "\"
                         data-show-faces=\"" . $show_faces . "\"
@@ -72,7 +71,6 @@ class Wpnlikebox extends Widget
                         width=\"" . $width . "\"
                         height=\"" . $height . "\">
                     </div>";
-        return $html;
     }
 
 }

@@ -1,9 +1,11 @@
 <!-- Banner begin -->
-<div class="<?= $class_name; ?>">
+<div class="<?php $class_name = isset($class_name) ? $class_name : '';
+echo $class_name; ?>">
     <div id="carousel-widget" data-interval="false" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <?php
             $laco = 0;
+            $banners = isset($banners) ? $banners : [];
             foreach ($banners as $row) {
                 if ($laco == 0) {
                     echo "            <div class=\"item active\">\n";

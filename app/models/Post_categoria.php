@@ -27,7 +27,7 @@ class Post_categoria extends MY_Model
      * Delete rows by post_id.
      * 
      * @param int $id_post
-     * @return mixed
+     * @return int
      */
     public function delete_by_post($id_post)
     {

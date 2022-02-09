@@ -9,7 +9,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Category menu class.
- * 
+ *
+ * @property Category $category
+ * @property CI_Loader $load
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Wpncategorymenu extends Widget
@@ -29,7 +31,7 @@ class Wpncategorymenu extends Widget
      * Set an array of html attributes to the output.
      * 
      * @param mixed $attributes
-     * @return string
+     * @return string|void
      */
     private function _attributes($attributes)
     {
@@ -50,7 +52,7 @@ class Wpncategorymenu extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
@@ -72,8 +74,7 @@ class Wpncategorymenu extends Widget
                 ->order_by('title', 'asc')
                 ->find_many_by('category_id', $id);
 
-        $html = '';
-        $html .= '<ul ' . $this->_attributes($this->main_attr) . '>';
+        $html = '<ul ' . $this->_attributes($this->main_attr) . '>';
         foreach ($query as $row)
         {
             $html .= '<li ' . $this->_attributes($this->item_attr) . '>' . anchor('/posts/' . $row->id . '/' . $row->link, '<span class="glyphicon glyphicon-chevron-right"></span> ' . $row->title) . '</li>';

@@ -9,7 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
  * Model Configuracao
- * 
+ *
+ * @property Wpanel $wpanel
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Configuracao extends MY_Model
@@ -25,18 +26,16 @@ class Configuracao extends MY_Model
 
     /**
      * Load json config file or item.
-     * 
-     * @param string $conf_item
+     *
      * @return mixed
      */
     public function load_config()
     {
-        $cobj = $this->wpanel->read_json(FCPATH . 'config/config.json');
-        return $cobj;
+        return $this->wpanel->read_json(FCPATH . 'config/config.json');
     }
 
     /**
-     * Save an config file.
+     * Save a config file.
      * 
      * @param mixed $data
      * @return boolean
@@ -51,7 +50,7 @@ class Configuracao extends MY_Model
     }
 
     /**
-     * Return an config item.
+     * Return a config item.
      * 
      * @param string $item
      * @return mixed

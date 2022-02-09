@@ -18,14 +18,12 @@ class Wpnaddthisheader extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {
-        $html = "";
-        $html .= "<script type=\"text/javascript\" src=\"//s7.addthis.com/js/300/addthis_widget.js
+        return "<script type=\"text/javascript\" src=\"//s7.addthis.com/js/300/addthis_widget.js
         #pubid=" . wpn_config('addthis_uid') . "\"></script>";
-        return $html;
     }
 
 }

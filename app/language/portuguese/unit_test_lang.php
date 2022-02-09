@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection DuplicatedCode */
 
 $lang['ut_test_name']      = 'Nome do teste';
 $lang['ut_test_datatype']  = 'Tipos de dados do teste';

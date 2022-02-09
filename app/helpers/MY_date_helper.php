@@ -19,7 +19,7 @@ if (!function_exists('date_for_mysql'))
 {
 
     /**
-     * This helper return an human date to mysql date.
+     * This helper return a human date to mysql date.
      *
      * @param $date string Ex: 10/12/2015
      * @return string Ex: 2015-12-10
@@ -30,8 +30,7 @@ if (!function_exists('date_for_mysql'))
         $dia = $desmonta[0];
         $mes = $desmonta[1];
         $ano = $desmonta[2];
-        $saida = $ano . "-" . $mes . "-" . $dia;
-        return $saida;
+        return $ano . "-" . $mes . "-" . $dia;
     }
 
 }
@@ -40,7 +39,7 @@ if (!function_exists('date_for_user'))
 {
 
     /**
-     * This helper return an mysql date to human date.
+     * This helper return a mysql date to human date.
      *
      * @param $date string Ex: 2015-12-10
      * @return string Ex: 10/12/2015
@@ -51,8 +50,7 @@ if (!function_exists('date_for_user'))
         $ano = $desmonta[0];
         $mes = $desmonta[1];
         $dia = $desmonta[2];
-        $saida = $dia . "/" . $mes . "/" . $ano;
-        return $saida;
+        return $dia . "/" . $mes . "/" . $ano;
     }
 
 }
@@ -61,7 +59,7 @@ if (!function_exists('datetime_for_mysql'))
 {
 
     /**
-     * This helper return an human date with time to mysql date.
+     * This helper return a human date with time to mysql date.
      *
      * @param $date string Ex: 10/12/2015 12:00:00
      * @return string Ex: 2015-12-10 12:00:00
@@ -84,7 +82,7 @@ if (!function_exists('datetime_for_user'))
 {
 
     /**
-     * This helper return an mysql date with time to human date.
+     * This helper return a mysql date with time to human date.
      *
      * @param $date string Ex: 2015-12-10 12:00:00
      * @return string Ex: 10/12/2015 12:00:00

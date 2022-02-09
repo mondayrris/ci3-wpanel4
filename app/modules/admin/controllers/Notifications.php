@@ -10,6 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Class notifications.
  *
+ * @property Notification $notification
  * @todo Traduzir os status e posições dos banners.
  * 
  * @author Eliel de Paula <dev@elieldepaula.com.br>

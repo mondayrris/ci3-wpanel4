@@ -26,7 +26,7 @@ class Wpnsitedescription extends Widget
     /**
      * Main method of the widget.
      * 
-     * @return mixed
+     * @return string
      */
     public function main()
     {

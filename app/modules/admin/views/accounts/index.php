@@ -1,4 +1,7 @@
-<?php if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
+<?php /** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+if (!defined('BASEPATH')) exit('No direct script access allowed'); ?>
 <section class="content-header">
     <h1>
         <?= wpn_lang('module_title'); ?>

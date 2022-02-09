@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -21,10 +21,6 @@ class Users extends MY_Controller
      * @var Wpanel
      */
     public $wpanel;
-    /**
-     * @var Auth
-     */
-    public $auth;
 
     /**
      * Constructor da classe.

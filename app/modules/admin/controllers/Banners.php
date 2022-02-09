@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 /**
  * @copyright Eliel de Paula <dev@elieldepaula.com.br>
@@ -10,6 +10,8 @@ defined('BASEPATH') || exit('No direct script access allowed');
 /**
  * Class banners.
  *
+ * @property Banner $banner
+ * @property Wpanel $wpanel
  * @todo Traduzir os status e posições dos banners.
  * 
  * @author Eliel de Paula <dev@elieldepaula.com.br>
@@ -90,13 +92,7 @@ class Banners extends Authenticated_admin_controller
             $this->render();
         else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['href'] = $this->input->post('href');
-            $data['target'] = $this->input->post('target');
-            $data['sequence'] = $this->input->post('sequence');
-            $data['position'] = $this->input->post('position');
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             $data['content'] = $this->wpanel->upload_media('banners');
             if ($this->banner->insert($data))
                 $this->set_message(wpn_lang('wpn_message_save_success'), 'success', 'admin/banners');
@@ -124,13 +120,7 @@ class Banners extends Authenticated_admin_controller
             $this->render();
         } else
         {
-            $data = array();
-            $data['title'] = $this->input->post('title');
-            $data['href'] = $this->input->post('href');
-            $data['target'] = $this->input->post('target');
-            $data['sequence'] = $this->input->post('sequence');
-            $data['position'] = $this->input->post('position');
-            $data['status'] = $this->input->post('status');
+            $data = $this->_get_save_data();
             if ($this->input->post('alterar_imagem') == '1')
             {
                 $banner = $this->banner->find($id);
@@ -160,6 +150,21 @@ class Banners extends Authenticated_admin_controller
             $this->set_message(wpn_lang('wpn_message_delete_success'), 'success', 'admin/banners');
         else
             $this->set_message(wpn_lang('wpn_message_delete_error'), 'danger', 'admin/banners');
+    }
+
+    /**
+     * @return array
+     */
+    private function _get_save_data()
+    {
+        $data = array();
+        $data['title'] = $this->input->post('title');
+        $data['href'] = $this->input->post('href');
+        $data['target'] = $this->input->post('target');
+        $data['sequence'] = $this->input->post('sequence');
+        $data['position'] = $this->input->post('position');
+        $data['status'] = $this->input->post('status');
+        return $data;
     }
 
 }

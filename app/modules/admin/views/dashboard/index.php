@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
+/** @noinspection PhpUndefinedVariableInspection */
 // Captura o avatar do usuário.
 $avatar = auth_extra_data('avatar');
 if ($avatar)

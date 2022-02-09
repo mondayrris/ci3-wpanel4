@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 
 class Migrate extends CI_Controller
 {
