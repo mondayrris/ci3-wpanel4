@@ -1415,7 +1415,7 @@ class MY_Model extends CI_Model {
      * @param string $url
      * @return boolean
      */
-    protected function validate_permission($account_id, $url)
+    public function validate_permission($account_id, $url)
     {
         $this->db->select('permissions.*');
         $this->db->from('permissions');
