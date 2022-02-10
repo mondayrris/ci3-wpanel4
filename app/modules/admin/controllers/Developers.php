@@ -16,7 +16,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  */
 class Developers extends Authenticated_admin_controller
 {
-    
+
     /**
      * Class constructor.
      */
@@ -29,21 +29,21 @@ class Developers extends Authenticated_admin_controller
         $this->load->model('developersModel');
         // var_dump($this->developersModel); die();
     }
-    
+
     public function index()
     {
         $this->render();
     }
-    
+
     /**
      * Acompanha os logs do CodeIgniter caso esteja ativado nas configurações.
-     * 
+     *
      * @param string $log_file
      */
     public function logs($log_file = null)
     {
         if ($log_file === null) {
-            
+
             if ($this->config->item('log_threshold') == 0) {
                 $listagem = '<span class="text-danger">'.wpn_lang('msg_log_disabled').'</span>';
             } else {
@@ -57,9 +57,9 @@ class Developers extends Authenticated_admin_controller
                 for ($i = 0; $i < sizeof($map); $i++) {
                     if($map[$i] != 'index.html'){
                         $this->table->add_row(
-                            str_replace('.php', '', $map[$i]), 
+                            str_replace('.php', '', $map[$i]),
                             '<div class="btn-group btn-group-xs">'.
-                            anchor('admin/developers/logs/'.str_replace('.php', '', $map[$i]), glyphicon('eye-open'), array('class' => 'btn btn-xs btn-default')) . 
+                            anchor('admin/developers/logs/'.str_replace('.php', '', $map[$i]), glyphicon('eye-open'), array('class' => 'btn btn-xs btn-default')) .
                             anchor('admin/developers/deletelog/'.str_replace('.php', '', $map[$i]), glyphicon('trash'), array('class' => 'btn btn-xs btn-default', 'data-confirm' => wpn_lang('msg_confirm_delete'))) .
                             '</div>'
                         );
@@ -80,22 +80,22 @@ class Developers extends Authenticated_admin_controller
             $this->view('admin/developers/readlog')->render();
         }
     }
-    
+
     /**
      * Gerencia os backups do banco de dados.
-     * 
+     *
      * @param int $new_backup Passe 1 para gerar o backup.
      */
     public function backups($new_backup = null)
     {
         // Checa a compatibilidade do backup com o driver configurado.
         $compatible = $this->_check_dbdriver();
-        
+
         if ($new_backup == 1) {
-            
+
             if( ! $compatible)
                 $this->set_message(wpn_lang('msg_compatibility'), 'info', 'admin/developers/backups');
-            
+
             $filename = 'Wpanelcms-backup-' . date('Y-d-m_H-i-s') . '.sql';
             $this->load->dbutil();
             $prefs = array(
@@ -122,9 +122,9 @@ class Developers extends Authenticated_admin_controller
             for ($i = 0; $i < sizeof($map); $i++) {
                 if($map[$i] != 'index.html'){
                     $this->table->add_row(
-                        str_replace('.php', '', $map[$i]), 
+                        str_replace('.php', '', $map[$i]),
                         '<div class="btn-group btn-group-xs">'.
-                        anchor('admin/developers/downloadbackup/'.$map[$i], glyphicon('download'), array('class' => 'btn btn-xs btn-default')). 
+                        anchor('admin/developers/downloadbackup/'.$map[$i], glyphicon('download'), array('class' => 'btn btn-xs btn-default')).
                         anchor('admin/developers/deletebackup/'.$map[$i], glyphicon('trash'), array('class' => 'btn btn-xs btn-default', 'data-confirm' => wpn_lang('msg_confirm_delete'))) .
                         '</div>'
                     );
@@ -135,10 +135,10 @@ class Developers extends Authenticated_admin_controller
             $this->render();
         }
     }
-    
+
     /**
      * Apaga um arquivo de log.
-     * 
+     *
      * @param string $filename
      */
     public function deletelog($filename)
@@ -148,10 +148,10 @@ class Developers extends Authenticated_admin_controller
         else
             $this->set_message(wpn_lang('msg_dellog_error'), 'danger', 'admin/developers/logs');
     }
-    
+
     /**
      * Força o download de um backup gerado previamente.
-     * 
+     *
      * @param string $filename
      */
     public function downloadbackup($filename)
@@ -159,10 +159,10 @@ class Developers extends Authenticated_admin_controller
         $this->load->helper('download');
         force_download(FCPATH . 'media/backupdb/' . $filename, null);
     }
-    
+
     /**
      * Esclui um arquivo de backup de banco de dados.
-     * 
+     *
      * @param string $filename
      */
     public function deletebackup($filename)
@@ -172,12 +172,12 @@ class Developers extends Authenticated_admin_controller
         else
             $this->set_message(wpn_lang('msg_delbkp_error'), 'danger', 'admin/developers/backups');
     }
-    
+
     public function modmigration($version = FALSE)
     {
-        
+
 //         print_r($this->migration->find_migrations());
-        
+
         if ($version === FALSE) {
 
             // Faz a listagem dos arquivos de log.
@@ -189,28 +189,28 @@ class Developers extends Authenticated_admin_controller
             $map = directory_map(APPPATH . 'database/migrations/', 0, false);
             for ($i = 0; $i < sizeof($map); $i++) {
                 if($map[$i] != 'index.html'){
-                    
+
                     $temp_id = explode("_", $map[$i]);
                     $id_migration = $temp_id[0];
                     $filename = str_replace('.php', '', $map[$i]);
-                    
+
                     if($temp_id[0] == $this->developersModel->get_migration_version())
                         $label_versao = '<span class="label label-danger">'. wpn_lang('actual_version').'</span>';
                     else
                         $label_versao = '';
-                    
+
                     $this->table->add_row(
                         $filename,
-                        $label_versao, 
+                        $label_versao,
                         '<div class="btn-group btn-group-xs">'.
-                        anchor('admin/developers/modmigration/'.$id_migration, glyphicon('refresh'), array('class' => 'btn btn-xs btn-default', 'data-confirm' => wpn_lang('msg_confirm_updateversion'))). 
-                        anchor('admin/developers/downloadmigration/'.$filename, glyphicon('download'), array('class' => 'btn btn-xs btn-default')). 
+                        anchor('admin/developers/modmigration/'.$id_migration, glyphicon('refresh'), array('class' => 'btn btn-xs btn-default', 'data-confirm' => wpn_lang('msg_confirm_updateversion'))).
+                        anchor('admin/developers/downloadmigration/'.$filename, glyphicon('download'), array('class' => 'btn btn-xs btn-default')).
                         anchor('admin/developers/deletemigration/'.$filename, glyphicon('trash'), array('class' => 'btn btn-xs btn-default', 'data-confirm' => wpn_lang('msg_confirm_delete'))) .
                         '</div>'
                     );
                 }
             }
-            
+
             $this->set_var('lista_migrations', form_dropdown('versao', $this->developersModel->get_migration_list()));
             $this->set_var('listagem', $this->table->generate());
             $this->render();
@@ -223,7 +223,7 @@ class Developers extends Authenticated_admin_controller
                 $this->set_message(wpn_lang('msg_updatemigration_success'), 'success', 'admin/developers/modmigration');
         }
     }
-    
+
     /**
      * Executa o migration para a última versão.
      */
@@ -254,17 +254,17 @@ class Developers extends Authenticated_admin_controller
 
     /**
      * Este método faz o download de um arquivo de migration.
-     * 
+     *
      * @param string $filename
      */
     public function downloadmigration($filename) {
         $this->load->helper('download');
         force_download(APPPATH . 'database/migrations/' . $filename . '.php', null);
     }
-    
+
     /**
      * Este método faz a excusão de um arquivo de migration.
-     * 
+     *
      * @param string $filename
      */
     public function deletemigration($filename) {
@@ -273,16 +273,20 @@ class Developers extends Authenticated_admin_controller
         else
             $this->set_message(wpn_lang('msg_delmigration_error'), 'danger', 'admin/developers/modmigration');
     }
-    
+
     /**
-     * Verifica a compatibilidade do driver de banco de dados com o recurso
-     * de backup do CodeIgniter.
-     * 
+     * Checks database driver compatibility with feature
+     * CodeIgniter backup.
+     *
      * @return bool
+     * @throws Exception
      */
     private function _check_dbdriver()
     {
-        $db = include FCPATH . 'config/database.php';
+        include FCPATH . 'config/database.php';
+
+        if (! isset($db)) throw new Exception('Loading db error!');
+
         switch ($db[ENVIRONMENT]['dbdriver']) {
             case 'mysql':
             case 'mysqli':
@@ -291,5 +295,4 @@ class Developers extends Authenticated_admin_controller
                 return FALSE;
         }
     }
-    
 }
