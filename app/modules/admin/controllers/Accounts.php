@@ -14,6 +14,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Wpanel $wpanel
  * @property Account $account
  * @property Logaccess $logaccess
+ * @property Json $json
  * @author Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Accounts extends Authenticated_admin_controller
@@ -31,6 +32,7 @@ class Accounts extends Authenticated_admin_controller
 
     /**
      * Index page.
+     * @throws Exception
      */
     public function index()
     {
@@ -58,11 +60,18 @@ class Accounts extends Authenticated_admin_controller
         $query = $this->account->limit($limit, $offset)
                             ->select('id, email, extra_data, role, created_on, status')
                             ->find_all();
-        
+
+        $this->load->library('json');
+
         foreach ($query as $row)
         {
+            $extra = $this->json
+                ->setString($row->extra_data)
+                ->fix()
+                ->toObject();
+
             $this->table->add_row(
-                    $row->id, json_decode($row->extra_data)->name, $row->email, $roles[$row->role], mdate(config_item('user_date_format'), strtotime($row->created_on)), status_post($row->status),
+                    $row->id, $extra->name, $row->email, $roles[$row->role], mdate(config_item('user_date_format'), strtotime($row->created_on)), status_post($row->status),
                     // Ícones de ações
                     div(array('class' => 'btn-group btn-group-xs')) .
                     anchor('admin/accounts/access/' . $row->id, glyphicon('eye-open'), array('class' => 'btn btn-default')) .
@@ -162,9 +171,13 @@ class Accounts extends Authenticated_admin_controller
      */
     public function edit($id = null)
     {
-
         $query = $this->account->find($id);
-        $extra = (object) json_decode($query->extra_data);
+
+        $this->load->library('json');
+        $extra = $this->json
+            ->setString($query->extra_data)
+            ->fix()
+            ->toObject();
 
         $this->form_validation->set_rules('name', wpn_lang('field_name'), 'required');
         $this->form_validation->set_rules('email', wpn_lang('field_email'), 'required|valid_email');
@@ -255,7 +268,12 @@ class Accounts extends Authenticated_admin_controller
     {
 
         $query = $this->auth->account();
-        $extra = (object) json_decode($query->extra_data);
+
+        $this->load->library('json');
+        $extra = $this->json
+            ->setString($query->extra_data)
+            ->fix()
+            ->toObject();
 
         if ($this->input->post('alterar_senha') == '1')
             $this->form_validation->set_rules('password', wpn_lang('field_password'), 'required');

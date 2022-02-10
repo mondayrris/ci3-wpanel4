@@ -23,6 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @property Account $account
  * @property Ipattempt $ipattempt
  * @property mixed $config
+ * @property Json $json
  * @author      Eliel de Paula <dev@elieldepaula.com.br>
  */
 class Auth
@@ -345,7 +346,7 @@ class Auth
      * @param string $backlink
      * @return boolean
      * @noinspection PhpUnusedParameterInspection
-     * @noinspection PhpUnusedParameterInspection
+     * @throws Exception
      */
     public function login($email, $password, $remember = FALSE, $backlink = NULL)
     {
@@ -713,8 +714,10 @@ class Auth
                         $this->account->update($account_id, $data);
                     }
                     return TRUE;
-                } else
+                } else {
                     return FALSE;
+                }
+
         }
     }
 
@@ -723,13 +726,21 @@ class Auth
      *
      * @param object $account
      * @return void
+     * @throws Exception
      */
     private function _set_session($account)
     {
         if (!$account->id) {
             return;
         }
-        $object = (object) json_decode($account->extra_data);
+
+        $this->load->library('json');
+
+        $object = $this->json
+            ->setString($account->extra_data)
+            ->fix()
+            ->toObject();
+
         $data = array(
             'id' => $account->id,
             'email' => $account->email,
