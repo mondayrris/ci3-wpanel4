@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+// logo for regular state and mobile devices
+const SITE_BACKEND_LOGO = '<span class="logo-lg"><b>Admin</b>Portal</span>';
+
+// mini logo for sidebar mini 50x50 pixels
+const SITE_BACKEND_LOGO_MINI = '<span class="logo-mini"></span>';
+
 /*
 |--------------------------------------------------------------------------
 | Base Site URL
